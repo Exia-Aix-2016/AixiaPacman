@@ -1,7 +1,6 @@
 package fr.exia.aixiapacman;
 
 import fr.exia.aixiapacman.element.Element;
-import fr.exia.aixiapacman.element.mobile.MyVehicle;
 import fr.exia.showboard.BoardFrame;
 
 import javax.swing.*;
