@@ -46,7 +46,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
     private Map             Map;
 
     /** The my vehicle. */
-    private fr.exia.aixiapacman.element.mobile.PacMan PacMan;
+    private PacMan pacman;
 
     /** The view. */
     private int              view;
@@ -143,7 +143,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
      * @return the my vehicle
      */
     public final PacMan getMyVehicle() {
-        return this.PacMan;
+        return this.pacman;
     }
 
     /**
@@ -152,8 +152,8 @@ public class AixiaPacmanGame extends Observable implements Runnable{
      * @param myVehicle
      *            the new my vehicle
      */
-    public final void setMyVehicle(final PacMan myVehicle) {
-        this.PacMan = myVehicle;
+    public final void setMyVehicle(final PacMan pacman) {
+        this.pacman = pacman;
     }
 
     /**

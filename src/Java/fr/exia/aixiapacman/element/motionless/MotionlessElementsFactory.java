@@ -8,28 +8,20 @@ package fr.exia.aixiapacman.element.motionless;
  */
 public abstract class MotionlessElementsFactory {
 
-    /** The Constant DITCH. */
-    private static final Ditch         DITCH              = new Ditch();
+    /** The Constant WALL. */
+    private static final Wall         WALL            = new Wall();
 
-    /** The Constant DITCH_RIGHT. */
-    private static final DitchRight    DITCH_RIGHT        = new DitchRight();
+    /** The Constant FLOOR. */
+    private static final Floor    FLOOR        = new Floor();
 
-    /** The Constant DITCH_LEFT. */
-    private static final DitchLeft     DITCH_LEFT         = new DitchLeft();
+    /** The Constant COIN. */
+    private static final Coin     COIN         = new Coin();
 
-    /** The Constant TREE. */
-    private static final Tree          TREE               = new Tree();
-
-    /** The Constant MACADAM. */
-    private static final Macadam       MACADAM            = new Macadam();
-
-    /** The Constant OBSTACLE. */
-    private static final Obstacle      OBSTACLE           = new Obstacle();
 
     /**
      * The motionless elements is an array of all possible MotionlessElement.
      */
-    private static MotionlessElement[] motionlessElements = { DITCH, DITCH_RIGHT, DITCH_LEFT, MACADAM, OBSTACLE, TREE };
+    private static MotionlessElement[] motionlessElements = { WALL, FLOOR, COIN};
 
     /**
      * }
@@ -37,8 +29,8 @@ public abstract class MotionlessElementsFactory {
      *
      * @return the motionless element
      */
-    public static MotionlessElement createDitch() {
-        return DITCH;
+    public static MotionlessElement createWall() {
+        return WALL;
     }
 
     /**
@@ -46,8 +38,8 @@ public abstract class MotionlessElementsFactory {
      *
      * @return the motionless element
      */
-    public static MotionlessElement createDitchRight() {
-        return DITCH_RIGHT;
+    public static MotionlessElement createFloor() {
+        return FLOOR;
     }
 
     /**
@@ -55,36 +47,10 @@ public abstract class MotionlessElementsFactory {
      *
      * @return the motionless element
      */
-    public static MotionlessElement createDitchLeft() {
-        return DITCH_LEFT;
+    public static MotionlessElement createCoin() {
+        return COIN;
     }
 
-    /**
-     * Creates a new macadam object.
-     *
-     * @return the motionless element
-     */
-    public static MotionlessElement createMacadam() {
-        return MACADAM;
-    }
-
-    /**
-     * Creates a new obstacle object.
-     *
-     * @return the motionless element
-     */
-    public static MotionlessElement createObstacle() {
-        return OBSTACLE;
-    }
-
-    /**
-     * Creates a new MotionlessElements object.
-     *
-     * @return the motionless element
-     */
-    public static MotionlessElement createTree() {
-        return TREE;
-    }
 
     /**
      * Gets the good MotionlessElement from file symbol.
@@ -100,6 +66,6 @@ public abstract class MotionlessElementsFactory {
                 return motionlessElement;
             }
         }
-        return MACADAM;
+        return FLOOR;
     }
 }
