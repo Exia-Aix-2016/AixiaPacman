@@ -46,7 +46,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
     private Map             Map;
 
     /** The my vehicle. */
-    private PacMan myVehicle;
+    private PacMan pacman;
 
     /** The view. */
     private int              view;
@@ -143,7 +143,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
      * @return the my vehicle
      */
     public final PacMan getMyVehicle() {
-        return this.myVehicle;
+        return this.pacman;
     }
 
     /**
@@ -152,8 +152,8 @@ public class AixiaPacmanGame extends Observable implements Runnable{
      * @param myVehicle
      *            the new my vehicle
      */
-    public final void setMyVehicle(final PacMan myVehicle) {
-        this.myVehicle = myVehicle;
+    public final void setMyVehicle(final PacMan pacman) {
+        this.pacman = pacman;
     }
 
     /**
@@ -183,7 +183,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
 
         this.frameConfigure(frame);
 
-        PacMan car = this.getMyVehicle();
+        PacMan pacpac = this.getMyVehicle();
         AixiaPacmanGame self = this;
 
         frame.addKeyListener(new KeyListener() {
@@ -193,25 +193,30 @@ public class AixiaPacmanGame extends Observable implements Runnable{
             @Override
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
-                if (car.isAlive()){
+                if (pacpac.isAlive()){
                     switch( keyCode ) {
                         case KeyEvent.VK_LEFT:
-                            car.moveLeft();
+                            pacpac.moveLeft();
+                            self.setChanged();
+                            self.notifyObservers();
+                            break;
+                        case KeyEvent.VK_UP:
+                            pacpac.moveUp();
                             self.setChanged();
                             self.notifyObservers();
                             break;
                         case KeyEvent.VK_RIGHT :
-                            car.moveRight();
+                            pacpac.moveRight();
                             self.setChanged();
                             self.notifyObservers();
                             break;
                         case KeyEvent.VK_DOWN :
-                            car.moveDown();
+                            pacpac.moveDown();
                             self.setChanged();
                             self.notifyObservers();
                             break;
                     }
-                    if (car.isCrashed()){
+                    if (pacpac.isCrashed()){
                         System.out.println("CRASH !");
                     }
                 }
