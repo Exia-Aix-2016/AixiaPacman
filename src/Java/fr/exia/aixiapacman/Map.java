@@ -71,11 +71,11 @@ public class Map {
         for (int y = 0; y < this.getHeight(); y++) {
             for (int x = 0; x < this.getWidth(); x++) {
                 if ((x == 0) || (x == (this.getWidth() - 1))) {
-                    this.setOnTheMapXY(MotionlessElementsFactory.createDitch(), x, y);
+                    this.setOnTheMapXY(MotionlessElementsFactory.createWall(), x, y);
                 } else if ((random.nextInt() % this.getQuota()) == 0) {
-                    this.setOnTheMapXY(MotionlessElementsFactory.createObstacle(), x, y);
+                    this.setOnTheMapXY(MotionlessElementsFactory.createCoin(), x, y);
                 } else {
-                    this.setOnTheMapXY(MotionlessElementsFactory.createMacadam(), x, y);
+                    this.setOnTheMapXY(MotionlessElementsFactory.createFloor(), x, y);
                 }
             }
         }
