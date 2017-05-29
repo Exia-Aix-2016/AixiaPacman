@@ -9,7 +9,7 @@ package fr.exia.aixiapacman.element.motionless;
 public abstract class MotionlessElementsFactory {
 
     /** The Constant WALL. */
-    private static final Wall         WALL            = new Wall();
+    private static final Wall     WALL            = new Wall();
 
     /** The Constant FLOOR. */
     private static final Floor    FLOOR        = new Floor();

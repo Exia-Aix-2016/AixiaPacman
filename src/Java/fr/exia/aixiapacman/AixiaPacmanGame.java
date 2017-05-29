@@ -1,6 +1,7 @@
 package fr.exia.aixiapacman;
 
 import fr.exia.aixiapacman.element.Element;
+import fr.exia.aixiapacman.element.display.Letter;
 import fr.exia.aixiapacman.element.mobile.PacMan;
 import fr.exia.showboard.BoardFrame;
 import jdk.internal.util.xml.impl.Input;
@@ -84,6 +85,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
      *             Signals that an I/O exception has occurred.
      */
     public final void play() throws IOException {
+
         while (this.getMyPacman().isAlive()) {
             this.show(this.getMyPacman().getY());
             final int key = System.in.read();
@@ -108,7 +110,6 @@ public class AixiaPacmanGame extends Observable implements Runnable{
             }
             this.getMyPacman().moveDown();
         }
-        System.out.println("CRASH !!!!!!!!!\n");
     }
 
     /**
@@ -118,6 +119,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
      *            the y start
      */
     public final void show(final int yStart) {
+
         int y = yStart % this.getMap().getHeight();
         for (int view = 0; view < this.getView(); view++) {
             for (int x = 0; x < this.getMap().getWidth(); x++) {
@@ -190,6 +192,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
     }
 
     public void run(){
+
         final BoardFrame frame = new BoardFrame("Pacman");
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDimension(new Dimension(this.getMap().getWidth(), this.getMap().getHeight()));
@@ -265,8 +268,13 @@ public class AixiaPacmanGame extends Observable implements Runnable{
                 Element e = this.getMap().getOnTheMapXY(x,y);
                 frame.addSquare(e, x, y);
 
+
+
             }
         }
+
+
+       frame.add(new Letter());
         frame.addPawn(this.getMyPacman());
         this.addObserver(frame.getObserver());
 
