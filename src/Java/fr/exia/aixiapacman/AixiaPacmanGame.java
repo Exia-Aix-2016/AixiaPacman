@@ -5,6 +5,7 @@ import fr.exia.aixiapacman.element.mobile.Coin;
 import fr.exia.aixiapacman.element.mobile.PacMan;
 import fr.exia.aixiapacman.element.motionless.*;
 import fr.exia.showboard.BoardFrame;
+import jdk.internal.util.xml.impl.Input;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,10 +34,10 @@ public class AixiaPacmanGame extends Observable implements Runnable{
     public static final int  MapQuota  = 20;
 
     /** The Constant startX. */
-    private static final int startX     = 5;
+    private static final int startX     = 1;
 
     /** The Constant startY. */
-    private static final int startY     = 0;
+    private static final int startY     = 22;
 
     /** The Constant keyRight. */
     private static final int keyRight   = 51;
@@ -76,6 +77,27 @@ public class AixiaPacmanGame extends Observable implements Runnable{
         } catch (IOException e){}
 
         SwingUtilities.invokeLater(this);
+    }
+
+    /**
+     * Print the Map and the player's vehicle in the console.
+     *
+     * @param yStart
+     *            the y start
+     */
+    public final void show(final int yStart) {
+        int y = yStart % this.getMap().getHeight();
+        for (int view = 0; view < this.getView(); view++) {
+            for (int x = 0; x < this.getMap().getWidth(); x++) {
+                if ((x == this.getMyPacman().getX()) && (y == yStart)) {
+                    System.out.print(this.getMyPacman().getSprite());
+                } else {
+                    System.out.print(this.getMap().getOnTheMapXY(x, y).getSprite());
+                }
+            }
+            y = (y + 1) % this.getMap().getHeight();
+            System.out.print("\n");
+        }
     }
 
     /**
@@ -144,7 +166,10 @@ public class AixiaPacmanGame extends Observable implements Runnable{
         this.frameConfigure(frame);
 
         PacMan pacpac = this.getMyPacman();
+
         AixiaPacmanGame self = this;
+
+
 
         frame.addKeyListener(new KeyListener() {
             @Override
@@ -154,23 +179,28 @@ public class AixiaPacmanGame extends Observable implements Runnable{
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
                 if (pacpac.isAlive()){
+                    System.out.println("la gauche");
                     switch( keyCode ) {
                         case KeyEvent.VK_LEFT:
+                            System.out.println("la gauche");
                             pacpac.moveLeft();
                             self.setChanged();
                             self.notifyObservers();
                             break;
                         case KeyEvent.VK_UP:
+                            System.out.println("la gauche");
                             pacpac.moveUp();
                             self.setChanged();
                             self.notifyObservers();
                             break;
                         case KeyEvent.VK_RIGHT :
+                            System.out.println("la gauche");
                             pacpac.moveRight();
                             self.setChanged();
                             self.notifyObservers();
                             break;
                         case KeyEvent.VK_DOWN :
+                            System.out.println("la gauche");
                             pacpac.moveDown();
                             self.setChanged();
                             self.notifyObservers();
@@ -182,15 +212,17 @@ public class AixiaPacmanGame extends Observable implements Runnable{
                 }
             }
 
+
             @Override
             public void keyReleased(KeyEvent e) {}
         });
+
     }
 
     public final void move() throws InterruptedException {
         while (true) {
             if (this.getMyPacman().isAlive()){
-                this.getMyPacman().moveDown();
+                this.getMyPacman().moveRight();
 
                 this.setChanged();
                 this.notifyObservers();
@@ -224,4 +256,6 @@ public class AixiaPacmanGame extends Observable implements Runnable{
 
         frame.setVisible(true);
     }
+
+
 }
