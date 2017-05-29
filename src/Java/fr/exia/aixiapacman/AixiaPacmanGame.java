@@ -3,7 +3,6 @@ package fr.exia.aixiapacman;
 import fr.exia.aixiapacman.element.Element;
 import fr.exia.aixiapacman.element.mobile.Coin;
 import fr.exia.aixiapacman.element.mobile.PacMan;
-import fr.exia.aixiapacman.element.motionless.*;
 import fr.exia.showboard.BoardFrame;
 
 import javax.swing.*;
@@ -38,19 +37,6 @@ public class AixiaPacmanGame extends Observable implements Runnable{
     /** The Constant startY. */
     private static final int startY     = 0;
 
-    /** The Constant keyRight. */
-    private static final int keyRight   = 51;
-
-    /** The Constant keyUp. */
-    private static final int keyUp      = 50;
-
-    /** The Constant keyLeft. */
-    private static final int keyLeft    = 49;
-
-    /** The Constant keyDown. */
-    private static final int keyDown    = 52;
-
-
     /** The Map. */
     private Map             Map;
 
@@ -67,8 +53,6 @@ public class AixiaPacmanGame extends Observable implements Runnable{
      *             Signals that an I/O exception has occurred.
      */
     public AixiaPacmanGame() {
-        // this.setMap(new Map(Map_WIDTH, Map_HEIGHT, Map_VIEW,
-        // Map_QUOTA));
         this.setView(MapView);
         try {
             this.setMap(new Map("map.txt", MapQuota));
@@ -136,7 +120,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
     }
 
     public void run(){
-        final BoardFrame frame = new BoardFrame("Pacman");
+        final BoardFrame frame = new BoardFrame("Pacman", true);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDimension(new Dimension(this.getMap().getWidth(), this.getMap().getHeight()));
         frame.setDisplayFrame(new Rectangle(0 , 0,this.getMap().getWidth()*2, this.getMap().getHeight()));
