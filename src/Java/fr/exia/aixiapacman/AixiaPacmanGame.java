@@ -1,9 +1,10 @@
 package fr.exia.aixiapacman;
 
 import fr.exia.aixiapacman.element.Element;
+import fr.exia.aixiapacman.element.mobile.Coin;
 import fr.exia.aixiapacman.element.mobile.PacMan;
+import fr.exia.aixiapacman.element.motionless.*;
 import fr.exia.showboard.BoardFrame;
-import jdk.internal.util.xml.impl.Input;
 
 import javax.swing.*;
 import java.awt.*;
@@ -209,7 +210,13 @@ public class AixiaPacmanGame extends Observable implements Runnable{
             for (int y = 0; y < this.getMap().getHeight(); y++) {
                 Element e = this.getMap().getOnTheMapXY(x,y);
                 frame.addSquare(e, x, y);
-
+                if (e.getSprite() == ' '){
+                    try {
+                        frame.addPawn(new Coin(x, y, this.getMap()));
+                    } catch (Exception ex){
+                        System.err.println(ex);
+                    }
+                }
             }
         }
         frame.addPawn(this.getMyPacman());
