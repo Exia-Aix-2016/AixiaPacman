@@ -8,7 +8,7 @@ import fr.exia.aixiapacman.element.Permeability;
 public class Floor extends MotionlessElement {
     /** The Constant SPRITE. */
     private static final char SPRITE = '|';
-    private static final String IMAGE = "dirt.jpg";
+    private static final String IMAGE = "floor.png";
 
     /**
      * Instantiates a new ditch.
