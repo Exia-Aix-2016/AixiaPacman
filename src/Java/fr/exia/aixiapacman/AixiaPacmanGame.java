@@ -1,6 +1,7 @@
 package fr.exia.aixiapacman;
 
 import fr.exia.aixiapacman.element.Element;
+import fr.exia.aixiapacman.element.mobile.PacMan;
 import fr.exia.showboard.BoardFrame;
 
 import javax.swing.*;
@@ -45,7 +46,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
     private Map             Map;
 
     /** The my vehicle. */
-    private MyVehicle        myVehicle;
+    private PacMan myVehicle;
 
     /** The view. */
     private int              view;
@@ -62,7 +63,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
         this.setView(MapView);
         try {
             this.setMap(new Map("map.txt", MapQuota));
-            this.setMyVehicle(new MyVehicle(startX, startY, this.getMap()));
+            this.setMyVehicle(new PacMan(startX, startY, this.getMap()));
         } catch (IOException e){}
 
         SwingUtilities.invokeLater(this);
@@ -141,7 +142,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
      *
      * @return the my vehicle
      */
-    public final MyVehicle getMyVehicle() {
+    public final PacMan getMyVehicle() {
         return this.myVehicle;
     }
 
@@ -151,7 +152,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
      * @param myVehicle
      *            the new my vehicle
      */
-    public final void setMyVehicle(final MyVehicle myVehicle) {
+    public final void setMyVehicle(final PacMan myVehicle) {
         this.myVehicle = myVehicle;
     }
 
@@ -182,7 +183,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
 
         this.frameConfigure(frame);
 
-        MyVehicle car = this.getMyVehicle();
+        PacMan car = this.getMyVehicle();
         AixiaPacmanGame self = this;
 
         frame.addKeyListener(new KeyListener() {
