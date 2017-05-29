@@ -1,6 +1,7 @@
 package fr.exia.aixiapacman;
 
 import fr.exia.aixiapacman.element.Element;
+import fr.exia.aixiapacman.element.mobile.PacMan;
 import fr.exia.showboard.BoardFrame;
 
 import javax.swing.*;
@@ -45,7 +46,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
     private Map             Map;
 
     /** The my vehicle. */
-    private MyVehicle        myVehicle;
+    private fr.exia.aixiapacman.element.mobile.PacMan PacMan;
 
     /** The view. */
     private int              view;
@@ -62,7 +63,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
         this.setView(MapView);
         try {
             this.setMap(new Map("map.txt", MapQuota));
-            this.setMyVehicle(new MyVehicle(startX, startY, this.getMap()));
+            this.setMyVehicle(new PacMan(startX, startY, this.getMap()));
         } catch (IOException e){}
 
         SwingUtilities.invokeLater(this);
@@ -141,8 +142,8 @@ public class AixiaPacmanGame extends Observable implements Runnable{
      *
      * @return the my vehicle
      */
-    public final MyVehicle getMyVehicle() {
-        return this.myVehicle;
+    public final PacMan getMyVehicle() {
+        return this.PacMan;
     }
 
     /**
@@ -151,8 +152,8 @@ public class AixiaPacmanGame extends Observable implements Runnable{
      * @param myVehicle
      *            the new my vehicle
      */
-    public final void setMyVehicle(final MyVehicle myVehicle) {
-        this.myVehicle = myVehicle;
+    public final void setMyVehicle(final PacMan myVehicle) {
+        this.PacMan = myVehicle;
     }
 
     /**
@@ -182,7 +183,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
 
         this.frameConfigure(frame);
 
-        MyVehicle car = this.getMyVehicle();
+        PacMan pacpac = this.getMyVehicle();
         AixiaPacmanGame self = this;
 
         frame.addKeyListener(new KeyListener() {
@@ -192,25 +193,30 @@ public class AixiaPacmanGame extends Observable implements Runnable{
             @Override
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
-                if (car.isAlive()){
+                if (pacpac.isAlive()){
                     switch( keyCode ) {
                         case KeyEvent.VK_LEFT:
-                            car.moveLeft();
+                            pacpac.moveLeft();
+                            self.setChanged();
+                            self.notifyObservers();
+                            break;
+                        case KeyEvent.VK_UP:
+                            pacpac.moveUp();
                             self.setChanged();
                             self.notifyObservers();
                             break;
                         case KeyEvent.VK_RIGHT :
-                            car.moveRight();
+                            pacpac.moveRight();
                             self.setChanged();
                             self.notifyObservers();
                             break;
                         case KeyEvent.VK_DOWN :
-                            car.moveDown();
+                            pacpac.moveDown();
                             self.setChanged();
                             self.notifyObservers();
                             break;
                     }
-                    if (car.isCrashed()){
+                    if (pacpac.isCrashed()){
                         System.out.println("CRASH !");
                     }
                 }
