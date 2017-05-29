@@ -78,27 +78,6 @@ public class AixiaPacmanGame extends Observable implements Runnable{
     }
 
     /**
-     * Print the Map and the player's vehicle in the console.
-     *
-     * @param yStart
-     *            the y start
-     */
-    public final void show(final int yStart) {
-        int y = yStart % this.getMap().getHeight();
-        for (int view = 0; view < this.getView(); view++) {
-            for (int x = 0; x < this.getMap().getWidth(); x++) {
-                if ((x == this.getMyPacman().getX()) && (y == yStart)) {
-                    System.out.print(this.getMyPacman().getSprite());
-                } else {
-                    System.out.print(this.getMap().getOnTheMapXY(x, y).getSprite());
-                }
-            }
-            y = (y + 1) % this.getMap().getHeight();
-            System.out.print("\n");
-        }
-    }
-
-    /**
      * Gets the Map.
      *
      * @return the Map
