@@ -1,5 +1,6 @@
 package fr.exia.aixiapacman.element.mobile;
 
+import fr.exia.aixiapacman.Map;
 import fr.exia.aixiapacman.element.Permeability;
 
 import java.io.IOException;
@@ -19,7 +20,7 @@ public class Ghost extends Mobile {
      * @param map
      *            the map
      */
-    public Ghost(final int x, final int y, final fr.exia.aixiapacman.Map map) throws IOException {
+    public Ghost(final int x, final int y, final Map map) throws IOException {
         super(x, y, IMAGE, SPRITE, map, Permeability.BLOCKING);
     }
 
