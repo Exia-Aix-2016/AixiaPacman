@@ -1,14 +1,9 @@
 package fr.exia.aixiapacman.element.mobile;
 
-import fr.exia.aixiapacman.element.Element;
 import fr.exia.aixiapacman.element.Permeability;
-import fr.exia.showboard.IPawn;
 
 import java.io.IOException;
 
-/**
- * Created by Mandel on 29/05/2017.
- */
 public class Ghost extends Mobile {
     /** The Constant SPRITE. */
     private static final char SPRITE = 'H';

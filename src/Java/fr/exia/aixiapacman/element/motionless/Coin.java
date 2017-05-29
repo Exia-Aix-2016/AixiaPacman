@@ -2,9 +2,6 @@ package fr.exia.aixiapacman.element.motionless;
 
 import fr.exia.aixiapacman.element.Permeability;
 
-/**
- * Created by Mandel on 29/05/2017.
- */
 public class Coin extends MotionlessElement {
 
     /** The Constant SPRITE. */
