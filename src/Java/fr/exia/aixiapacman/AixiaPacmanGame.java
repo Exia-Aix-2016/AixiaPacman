@@ -40,8 +40,15 @@ public class AixiaPacmanGame extends Observable implements Runnable{
     /** The Constant keyRight. */
     private static final int keyRight   = 51;
 
+    /** The Constant keyUp. */
+    private static final int keyUp      = 50;
+
     /** The Constant keyLeft. */
     private static final int keyLeft    = 49;
+
+    /** The Constant keyDown. */
+    private static final int keyDown    = 52;
+
 
     /** The Map. */
     private Map             Map;
@@ -64,7 +71,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
         this.setView(MapView);
         try {
             this.setMap(new Map("map.txt", MapQuota));
-            this.setMyVehicle(new PacMan(startX, startY, this.getMap()));
+            this.setMyPacman(new PacMan(startX, startY, this.getMap()));
         } catch (IOException e){}
 
         SwingUtilities.invokeLater(this);
@@ -77,15 +84,21 @@ public class AixiaPacmanGame extends Observable implements Runnable{
      *             Signals that an I/O exception has occurred.
      */
     public final void play() throws IOException {
-        while (this.getMyVehicle().isAlive()) {
-            this.show(this.getMyVehicle().getY());
+        while (this.getMyPacman().isAlive()) {
+            this.show(this.getMyPacman().getY());
             final int key = System.in.read();
             switch (key) {
                 case keyRight:
-                    this.getMyVehicle().moveRight();
+                    this.getMyPacman().moveRight();
                     break;
                 case keyLeft:
-                    this.getMyVehicle().moveLeft();
+                    this.getMyPacman().moveLeft();
+                    break;
+                case keyUp:
+                    this.getMyPacman().moveUp();
+                    break;
+                case keyDown:
+                    this.getMyPacman().moveDown();
                     break;
                 default:
                     break;
@@ -93,7 +106,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
             while (System.in.available() > 0) {
                 System.in.read();
             }
-            this.getMyVehicle().moveDown();
+            this.getMyPacman().moveDown();
         }
         System.out.println("CRASH !!!!!!!!!\n");
     }
@@ -108,8 +121,8 @@ public class AixiaPacmanGame extends Observable implements Runnable{
         int y = yStart % this.getMap().getHeight();
         for (int view = 0; view < this.getView(); view++) {
             for (int x = 0; x < this.getMap().getWidth(); x++) {
-                if ((x == this.getMyVehicle().getX()) && (y == yStart)) {
-                    System.out.print(this.getMyVehicle().getSprite());
+                if ((x == this.getMyPacman().getX()) && (y == yStart)) {
+                    System.out.print(this.getMyPacman().getSprite());
                 } else {
                     System.out.print(this.getMap().getOnTheMapXY(x, y).getSprite());
                 }
@@ -143,7 +156,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
      *
      * @return the my vehicle
      */
-    public final PacMan getMyVehicle() {
+    public final PacMan getMyPacman() {
         return this.pacman;
     }
 
@@ -153,7 +166,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
      * @param pacman
      *            the new my vehicle
      */
-    public final void setMyVehicle(final PacMan pacman) {
+    public final void setMyPacman(final PacMan pacman) {
         this.pacman = pacman;
     }
 
@@ -184,7 +197,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
 
         this.frameConfigure(frame);
 
-        PacMan pacpac = this.getMyVehicle();
+        PacMan pacpac = this.getMyPacman();
         AixiaPacmanGame self = this;
 
         frame.addKeyListener(new KeyListener() {
@@ -230,13 +243,13 @@ public class AixiaPacmanGame extends Observable implements Runnable{
 
     public final void move() throws InterruptedException {
         while (true) {
-            if (this.getMyVehicle().isAlive()){
-                this.getMyVehicle().moveDown();
+            if (this.getMyPacman().isAlive()){
+                this.getMyPacman().moveDown();
 
                 this.setChanged();
                 this.notifyObservers();
 
-                if (this.getMyVehicle().isCrashed()){
+                if (this.getMyPacman().isCrashed()){
                     break;
                 }
 
@@ -254,7 +267,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
 
             }
         }
-        frame.addPawn(this.getMyVehicle());
+        frame.addPawn(this.getMyPacman());
         this.addObserver(frame.getObserver());
 
         frame.setVisible(true);
