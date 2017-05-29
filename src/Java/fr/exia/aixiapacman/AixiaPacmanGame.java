@@ -78,40 +78,6 @@ public class AixiaPacmanGame extends Observable implements Runnable{
     }
 
     /**
-     * Play.
-     *
-     * @throws IOException
-     *             Signals that an I/O exception has occurred.
-     */
-    public final void play() throws IOException {
-        while (this.getMyPacman().isAlive()) {
-            this.show(this.getMyPacman().getY());
-            final int key = System.in.read();
-            switch (key) {
-                case keyRight:
-                    this.getMyPacman().moveRight();
-                    break;
-                case keyLeft:
-                    this.getMyPacman().moveLeft();
-                    break;
-                case keyUp:
-                    this.getMyPacman().moveUp();
-                    break;
-                case keyDown:
-                    this.getMyPacman().moveDown();
-                    break;
-                default:
-                    break;
-            }
-            while (System.in.available() > 0) {
-                System.in.read();
-            }
-            this.getMyPacman().moveDown();
-        }
-        System.out.println("CRASH !!!!!!!!!\n");
-    }
-
-    /**
      * Print the Map and the player's vehicle in the console.
      *
      * @param yStart
