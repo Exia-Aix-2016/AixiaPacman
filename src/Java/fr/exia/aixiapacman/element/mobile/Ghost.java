@@ -1,23 +1,21 @@
 package fr.exia.aixiapacman.element.mobile;
 
+import fr.exia.aixiapacman.element.Element;
 import fr.exia.aixiapacman.element.Permeability;
+import fr.exia.showboard.IPawn;
 
 import java.io.IOException;
 
 /**
- * <h1>PacMan.</h1>
- *
- * @author Mandel Vaubourg
- * @version 0.1
+ * Created by Mandel on 29/05/2017.
  */
-public class PacMan extends Mobile {
-
+public class Ghost extends Mobile {
     /** The Constant SPRITE. */
     private static final char SPRITE = 'H';
-    private static final String IMAGE = "car.png";
+    private static final String IMAGE = "";
 
     /**
-     * Instantiates a new PacMan.
+     * Instantiates a new Ghost.
      *
      * @param x
      *            the x
@@ -26,7 +24,8 @@ public class PacMan extends Mobile {
      * @param map
      *            the map
      */
-    public PacMan(final int x, final int y, final fr.exia.aixiapacman.Map map) throws IOException{
+    public Ghost(final int x, final int y, final fr.exia.aixiapacman.Map map) throws IOException {
         super(x, y, IMAGE, SPRITE, map, Permeability.BLOCKING);
     }
+
 }
