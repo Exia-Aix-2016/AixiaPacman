@@ -3,6 +3,7 @@ package fr.exia.aixiapacman;
 import fr.exia.aixiapacman.element.Element;
 import fr.exia.aixiapacman.element.mobile.PacMan;
 import fr.exia.showboard.BoardFrame;
+import jdk.internal.util.xml.impl.Input;
 
 import javax.swing.*;
 import java.awt.*;
@@ -149,7 +150,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
     /**
      * Sets the my vehicle.
      *
-     * @param myVehicle
+     * @param pacman
      *            the new my vehicle
      */
     public final void setMyVehicle(final PacMan pacman) {
@@ -176,10 +177,10 @@ public class AixiaPacmanGame extends Observable implements Runnable{
     }
 
     public void run(){
-        final BoardFrame frame = new BoardFrame("All view");
+        final BoardFrame frame = new BoardFrame("Pacman");
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDimension(new Dimension(this.getMap().getWidth(), this.getMap().getHeight()));
-        frame.setDisplayFrame(new Rectangle(0, 0,this.getMap().getWidth(), this.getMap().getHeight()));
-        frame.setSize(this.getMap().getWidth() *10, this.getMap().getHeight() * 20);
+        frame.setDisplayFrame(new Rectangle(0 , 0,this.getMap().getWidth()*2, this.getMap().getHeight()));
 
         this.frameConfigure(frame);
 
@@ -249,8 +250,6 @@ public class AixiaPacmanGame extends Observable implements Runnable{
         for (int x = 0; x < this.getMap().getWidth(); x++) {
             for (int y = 0; y < this.getMap().getHeight(); y++) {
                 Element e = this.getMap().getOnTheMapXY(x,y);
-                System.out.println(e.getImageName());
-                System.out.println(x +" , "+y);
                 frame.addSquare(e, x, y);
 
             }
