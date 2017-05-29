@@ -12,7 +12,7 @@ import java.io.IOException;
 public class Ghost extends Mobile {
     /** The Constant SPRITE. */
     private static final char SPRITE = 'H';
-    private static final String IMAGE = "";
+    private static final String IMAGE = "ghost.png";
 
     /**
      * Instantiates a new Ghost.
