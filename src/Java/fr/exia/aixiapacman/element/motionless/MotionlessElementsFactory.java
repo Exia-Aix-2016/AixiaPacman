@@ -52,6 +52,13 @@ public abstract class MotionlessElementsFactory {
     }
 
 
+    public static MotionlessElement createLetter(final char letter, final String filename){
+
+        return new Letter(letter, filename);
+
+    }
+
+
     /**
      * Gets the good MotionlessElement from file symbol.
      *

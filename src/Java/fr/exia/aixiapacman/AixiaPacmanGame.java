@@ -1,10 +1,9 @@
 package fr.exia.aixiapacman;
 
 import fr.exia.aixiapacman.element.Element;
-import fr.exia.aixiapacman.element.display.Letter;
+import fr.exia.aixiapacman.element.motionless.Score;
 import fr.exia.aixiapacman.element.mobile.PacMan;
 import fr.exia.showboard.BoardFrame;
-import jdk.internal.util.xml.impl.Input;
 
 import javax.swing.*;
 import java.awt.*;
@@ -267,14 +266,18 @@ public class AixiaPacmanGame extends Observable implements Runnable{
             for (int y = 0; y < this.getMap().getHeight(); y++) {
                 Element e = this.getMap().getOnTheMapXY(x,y);
                 frame.addSquare(e, x, y);
-
-
-
             }
         }
+        //Element lettre = MotionlessElementsFactory.createLetter('L', "A.png");
+        //frame.addSquare(lettre, 10, 10);
 
+        Score score = new Score("Test", 20, 0);
 
-       frame.add(new Letter());
+        for(int i = 0; i < score.getMots().size(); i++){
+
+            frame.addSquare((Element)score.getMots().get(i), i, 0);
+        }
+
         frame.addPawn(this.getMyPacman());
         this.addObserver(frame.getObserver());
 
