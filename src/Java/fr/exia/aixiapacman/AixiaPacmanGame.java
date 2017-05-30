@@ -88,12 +88,8 @@ public class AixiaPacmanGame extends Observable implements Runnable{
         this.frame.setDisplayFrame(new Rectangle(0 , 0,this.getMap().getWidth()*2, this.getMap().getHeight()));
         this.frameConfigure(frame);
 
-
-
-
         SwingUtilities.invokeLater(this);
 
-        //this.run();
     }
 
     /**
@@ -270,7 +266,10 @@ public class AixiaPacmanGame extends Observable implements Runnable{
             }
         }
     }
-
+    /**
+     * Permet de configurer la fenetre
+     * @param frame fenetre du jeu
+     * */
     public final void frameConfigure(final BoardFrame frame) {
         for (int x = 0; x < this.getMap().getWidth(); x++) {
             for (int y = 0; y < this.getMap().getHeight(); y++) {
@@ -283,7 +282,10 @@ public class AixiaPacmanGame extends Observable implements Runnable{
         this.addObserver(frame.getObserver());
 
         this.score.setMots("Score");
+        this.score.setScore('D');
         this.score.show(frame);
+        this.setChanged();
+        this.notifyObservers();
 
         frame.setVisible(true);
     }

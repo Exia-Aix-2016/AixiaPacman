@@ -10,9 +10,7 @@ import java.util.ArrayList;
 
 public class Score {
 
-    private int value;
-    private int max;
-    private int min;
+    private Letter score;
     private String name;
 
     private ArrayList<Letter> mots;
@@ -22,10 +20,7 @@ public class Score {
      * @param min define min score
      * */
     public Score(String nameOfTHisScoreBoard, final int max, final int min){
-
-        this.value = 0;
-        this.setMax(max);
-        this.setMin(min);
+        this.score = new Letter('A', "A.png");
 
         this.name = nameOfTHisScoreBoard;
         this.mots = new ArrayList<>();
@@ -56,8 +51,8 @@ public class Score {
             Letter letter = new Letter(c,filename);
             mots.add(letter);
         }
-        Letter l = new Letter('C', "C.png");
-        mots.add(l);
+
+        mots.add(score);
 
     }
 
@@ -77,41 +72,12 @@ public class Score {
 
         }
     }
+    public void setScore(final char score) {
+        String filename = score + ".png";
+        this.score = new Letter(score, filename);
+        this.mots.remove(this.mots.size() - 1);
+        this.mots.add(this.score);
 
-    /**
-     * @param max set max score
-     * */
-    public void setMax(int max) {
-        this.max = max;
     }
-    /**
-     * @param min set min score
-     * */
-    public void setMin(int min) {
-        this.min = min;
-    }
-    /**
-     * @param value set score
-     * */
-    public void setValue(int value) {
-        this.value = value;
-    }
-    /**
-     * @return max score
-     * */
-    public int getMax() {
-        return max;
-    }
-    /**
-     * @return min score
-     * */
-    public int getMin() {
-        return min;
-    }
-    /**
-     * @return score
-     * */
-    public int getValue() {
-        return value;
-    }
+
 }
