@@ -6,6 +6,7 @@ import fr.exia.aixiapacman.element.mobile.Coin;
 import fr.exia.aixiapacman.element.mobile.PacMan;
 import fr.exia.aixiapacman.element.motionless.*;
 import fr.exia.showboard.BoardFrame;
+import jdk.internal.util.xml.impl.Input;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,10 +35,10 @@ public class AixiaPacmanGame extends Observable implements Runnable{
     public static final int  MapQuota  = 20;
 
     /** The Constant startX. */
-    private static final int startX     = 12;
+    private static final int startX     = 1;
 
     /** The Constant startY. */
-    private static final int startY     = 12;
+    private static final int startY     = 22;
 
     /** The Constant keyRight. */
     private static final int keyRight   = 51;
@@ -89,6 +90,32 @@ public class AixiaPacmanGame extends Observable implements Runnable{
 
     }
 
+    /**
+     * Print the Map and the player's vehicle in the console.
+     *
+     * @param yStart
+     *            the y start
+     */
+    public final void show(final int yStart) {
+        int y = yStart % this.getMap().getHeight();
+        for (int view = 0; view < this.getView(); view++) {
+            for (int x = 0; x < this.getMap().getWidth(); x++) {
+                if ((x == this.getMyPacman().getX()) && (y == yStart)) {
+                    System.out.print(this.getMyPacman().getSprite());
+                } else {
+                    System.out.print(this.getMap().getOnTheMapXY(x, y).getSprite());
+                }
+            }
+            y = (y + 1) % this.getMap().getHeight();
+            System.out.print("\n");
+        }
+    }
+
+    /**
+     * Gets the Map.
+     *
+     * @return the Map
+     */
     public final Map getMap() {
         return this.Map;
     }
@@ -132,42 +159,54 @@ public class AixiaPacmanGame extends Observable implements Runnable{
 
 
         frame.addKeyListener(new KeyListener() {
+
             @Override
-            public void keyTyped(KeyEvent e) {}
+            public void keyTyped(KeyEvent e) {
+
+            }
 
             @Override
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
-                if (pacpac.isAlive()){
-                    switch( keyCode ) {
+                //if (pacpac.isAlive()) {
+                    switch (keyCode) {
                         case KeyEvent.VK_LEFT:
+                            System.out.println("left");
                             pacpac.moveLeft();
                             self.setChanged();
                             self.notifyObservers();
                             break;
                         case KeyEvent.VK_UP:
+                            System.out.println("up");
                             pacpac.moveUp();
                             self.setChanged();
                             self.notifyObservers();
                             break;
-                        case KeyEvent.VK_RIGHT :
+                        case KeyEvent.VK_RIGHT:
+                            System.out.println("Right");
                             pacpac.moveRight();
                             self.setChanged();
                             self.notifyObservers();
                             break;
-                        case KeyEvent.VK_DOWN :
+                        case KeyEvent.VK_DOWN:
+                            System.out.println("Down");
                             pacpac.moveDown();
                             self.setChanged();
                             self.notifyObservers();
                             break;
+
                     }
-                    if (pacpac.isCrashed()){
-                        System.out.println("CRASH !");
-                    }
-                }
+                    //while(KeyEvent() == ){
+                    //    pacpac.moveRight();
+                    //}
+
+                //}
             }
             @Override
-            public void keyReleased(KeyEvent e) {}
+            public void keyReleased(KeyEvent e) {
+
+            }
+
         });
 
         this.score.setScore('B');
@@ -176,8 +215,9 @@ public class AixiaPacmanGame extends Observable implements Runnable{
 
     public final void move() throws InterruptedException {
         while (true) {
+
             if (this.getMyPacman().isAlive()){
-                this.getMyPacman().moveDown();
+                this.getMyPacman().moveRight();
 
                 this.setChanged();
                 this.notifyObservers();
@@ -186,7 +226,6 @@ public class AixiaPacmanGame extends Observable implements Runnable{
                     break;
                 }
 
-                Thread.sleep(500);
             }
         }
     }

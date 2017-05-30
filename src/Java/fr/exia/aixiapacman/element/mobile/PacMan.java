@@ -14,7 +14,7 @@ public class PacMan extends Mobile {
 
     /** The Constant SPRITE. */
     private static final char SPRITE = 'H';
-    private static final String IMAGE = "pacman.png";
+    private static final String IMAGE = "Pacman.png";
 
     /**
      * Instantiates a new PacMan.
