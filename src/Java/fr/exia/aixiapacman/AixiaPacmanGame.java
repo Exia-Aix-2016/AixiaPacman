@@ -148,7 +148,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
 
     public void run(){
         //Creation de la fenetre
-        this.frame = new BoardFrame("Pacman");
+        this.frame = new BoardFrame("Pacman", true);
         this.frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.frame.setDimension(new Dimension(this.getMap().getWidth(), this.getMap().getHeight()));
         this.frame.setDisplayFrame(new Rectangle(0 , 0,this.getMap().getWidth()*2, this.getMap().getHeight()));
