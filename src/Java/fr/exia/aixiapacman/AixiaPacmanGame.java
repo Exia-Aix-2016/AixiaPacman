@@ -1,9 +1,11 @@
 package fr.exia.aixiapacman;
 
 import fr.exia.aixiapacman.element.Element;
+import fr.exia.aixiapacman.element.motionless.Score;
 import fr.exia.aixiapacman.element.mobile.Coin;
 import fr.exia.aixiapacman.element.mobile.PacMan;
 import fr.exia.showboard.BoardFrame;
+import jdk.internal.util.xml.impl.Input;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,10 +34,10 @@ public class AixiaPacmanGame extends Observable implements Runnable{
     public static final int  MapQuota  = 20;
 
     /** The Constant startX. */
-    private static final int startX     = 5;
+    private static final int startX     = 1;
 
     /** The Constant startY. */
-    private static final int startY     = 0;
+    private static final int startY     = 22;
 
     /** The Map. */
     private Map             Map;
@@ -45,6 +47,11 @@ public class AixiaPacmanGame extends Observable implements Runnable{
 
     /** The view. */
     private int              view;
+
+    private BoardFrame frame;
+    private Score score;
+
+
 
     /**
      * Instantiates a new insane vehicles games.
@@ -59,7 +66,33 @@ public class AixiaPacmanGame extends Observable implements Runnable{
             this.setMyPacman(new PacMan(startX, startY, this.getMap()));
         } catch (IOException e){}
 
+        //Creation du score
+        this.score = new Score("sc", 'A');
+        this.score.setMots("score");
+        //Invoke
         SwingUtilities.invokeLater(this);
+
+    }
+
+    /**
+     * Print the Map and the player's vehicle in the console.
+     *
+     * @param yStart
+     *            the y start
+     */
+    public final void show(final int yStart) {
+        int y = yStart % this.getMap().getHeight();
+        for (int view = 0; view < this.getView(); view++) {
+            for (int x = 0; x < this.getMap().getWidth(); x++) {
+                if ((x == this.getMyPacman().getX()) && (y == yStart)) {
+                    System.out.print(this.getMyPacman().getSprite());
+                } else {
+                    System.out.print(this.getMap().getOnTheMapXY(x, y).getSprite());
+                }
+            }
+            y = (y + 1) % this.getMap().getHeight();
+            System.out.print("\n");
+        }
     }
 
     /**
@@ -81,100 +114,94 @@ public class AixiaPacmanGame extends Observable implements Runnable{
         this.Map = Map;
     }
 
-    /**
-     * Gets the my vehicle.
-     *
-     * @return the my vehicle
-     */
     public final PacMan getMyPacman() {
         return this.pacman;
     }
 
-    /**
-     * Sets the my vehicle.
-     *
-     * @param pacman
-     *            the new my vehicle
-     */
     public final void setMyPacman(final PacMan pacman) {
         this.pacman = pacman;
     }
 
-    /**
-     * Gets the view.
-     *
-     * @return the view
-     */
     public final int getView() {
         return this.view;
     }
 
-    /**
-     * Sets the view.
-     *
-     * @param view
-     *            the new view
-     */
     private void setView(final int view) {
         this.view = view;
     }
 
     public void run(){
+      
         final BoardFrame frame = new BoardFrame("Pacman", true);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDimension(new Dimension(this.getMap().getWidth(), this.getMap().getHeight()));
         frame.setDisplayFrame(new Rectangle(0 , 0,this.getMap().getWidth()*2, this.getMap().getHeight()));
-
         this.frameConfigure(frame);
 
         PacMan pacpac = this.getMyPacman();
         AixiaPacmanGame self = this;
 
+
         frame.addKeyListener(new KeyListener() {
+
             @Override
-            public void keyTyped(KeyEvent e) {}
+            public void keyTyped(KeyEvent e) {
+
+            }
 
             @Override
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
-                if (pacpac.isAlive()){
-                    switch( keyCode ) {
+                //if (pacpac.isAlive()) {
+                    switch (keyCode) {
                         case KeyEvent.VK_LEFT:
+                            System.out.println("left");
                             pacpac.moveLeft();
                             self.setChanged();
                             self.notifyObservers();
                             break;
                         case KeyEvent.VK_UP:
+                            System.out.println("up");
                             pacpac.moveUp();
                             self.setChanged();
                             self.notifyObservers();
                             break;
-                        case KeyEvent.VK_RIGHT :
+                        case KeyEvent.VK_RIGHT:
+                            System.out.println("Right");
                             pacpac.moveRight();
                             self.setChanged();
                             self.notifyObservers();
                             break;
-                        case KeyEvent.VK_DOWN :
+                        case KeyEvent.VK_DOWN:
+                            System.out.println("Down");
                             pacpac.moveDown();
                             self.setChanged();
                             self.notifyObservers();
                             break;
+
                     }
-                    if (pacpac.isCrashed()){
-                        System.out.println("CRASH !");
-                    }
-                }
+                    //while(KeyEvent() == ){
+                    //    pacpac.moveRight();
+                    //}
+
+                //}
+            }
+            @Override
+            public void keyReleased(KeyEvent e) {
+
             }
 
-            @Override
-            public void keyReleased(KeyEvent e) {}
         });
+
+        this.score.setScore('B');
+        this.frameRefresh(this.frame);
     }
 
     public final void move() throws InterruptedException {
         while (true) {
+
             if (this.getMyPacman().isAlive()){
-                this.getMyPacman().moveDown();
+                this.getMyPacman().moveRight();
 
                 this.setChanged();
                 this.notifyObservers();
@@ -183,17 +210,19 @@ public class AixiaPacmanGame extends Observable implements Runnable{
                     break;
                 }
 
-                Thread.sleep(500);
             }
         }
     }
-
+    /**
+     * Permet de configurer la fenetre
+     * @param frame fenetre du jeu
+     * */
     public final void frameConfigure(final BoardFrame frame) {
-
         for (int x = 0; x < this.getMap().getWidth(); x++) {
             for (int y = 0; y < this.getMap().getHeight(); y++) {
                 Element e = this.getMap().getOnTheMapXY(x,y);
                 frame.addSquare(e, x, y);
+
                 if (e.getSprite() == ' '){
                     try {
                         frame.addPawn(new Coin(x, y, this.getMap()));
@@ -205,7 +234,15 @@ public class AixiaPacmanGame extends Observable implements Runnable{
         }
         frame.addPawn(this.getMyPacman());
         this.addObserver(frame.getObserver());
-
+        this.setChanged();
+        this.notifyObservers();
         frame.setVisible(true);
+    }
+
+    private final void frameRefresh(final BoardFrame frame){
+
+        this.score.show(frame);
+        this.setChanged();
+        this.notifyObservers();
     }
 }
