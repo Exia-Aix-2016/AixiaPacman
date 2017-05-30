@@ -294,10 +294,8 @@ public class AixiaPacmanGame extends Observable implements Runnable{
             }
         }
         frame.addPawn(this.getMyPacman());
-        frame.addPawn(this.tabghost.get(0));
-        frame.addPawn(this.tabghost.get(1));
-        frame.addPawn(this.tabghost.get(2));
-        frame.addPawn(this.tabghost.get(3));
+        for(int i =0; i<4; i++)
+            frame.addPawn(this.tabghost.get(i));
         this.addObserver(frame.getObserver());
         this.setChanged();
         this.notifyObservers();
