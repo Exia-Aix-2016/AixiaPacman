@@ -1,6 +1,7 @@
 package fr.exia.aixiapacman;
 
 import fr.exia.aixiapacman.element.Element;
+import fr.exia.aixiapacman.element.motionless.Score;
 import fr.exia.aixiapacman.element.mobile.Coin;
 import fr.exia.aixiapacman.element.mobile.PacMan;
 import fr.exia.aixiapacman.element.motionless.*;
@@ -61,6 +62,11 @@ public class AixiaPacmanGame extends Observable implements Runnable{
     /** The view. */
     private int              view;
 
+    private BoardFrame frame;
+    private Score score;
+
+
+
     /**
      * Instantiates a new insane vehicles games.
      *
@@ -76,7 +82,12 @@ public class AixiaPacmanGame extends Observable implements Runnable{
             this.setMyPacman(new PacMan(startX, startY, this.getMap()));
         } catch (IOException e){}
 
+        //Creation du score
+        this.score = new Score("sc", 'A');
+        this.score.setMots("score");
+        //Invoke
         SwingUtilities.invokeLater(this);
+
     }
 
     /**
@@ -119,55 +130,32 @@ public class AixiaPacmanGame extends Observable implements Runnable{
         this.Map = Map;
     }
 
-    /**
-     * Gets the my vehicle.
-     *
-     * @return the my vehicle
-     */
     public final PacMan getMyPacman() {
         return this.pacman;
     }
 
-    /**
-     * Sets the my vehicle.
-     *
-     * @param pacman
-     *            the new my vehicle
-     */
     public final void setMyPacman(final PacMan pacman) {
         this.pacman = pacman;
     }
 
-    /**
-     * Gets the view.
-     *
-     * @return the view
-     */
     public final int getView() {
         return this.view;
     }
 
-    /**
-     * Sets the view.
-     *
-     * @param view
-     *            the new view
-     */
     private void setView(final int view) {
         this.view = view;
     }
 
     public void run(){
-        final BoardFrame frame = new BoardFrame("Pacman");
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setDimension(new Dimension(this.getMap().getWidth(), this.getMap().getHeight()));
-        frame.setDisplayFrame(new Rectangle(0 , 0,this.getMap().getWidth()*2, this.getMap().getHeight()));
-
+        //Creation de la fenetre
+        this.frame = new BoardFrame("Pacman");
+        this.frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.frame.setDimension(new Dimension(this.getMap().getWidth(), this.getMap().getHeight()));
+        this.frame.setDisplayFrame(new Rectangle(0 , 0,this.getMap().getWidth()*2, this.getMap().getHeight()));
         this.frameConfigure(frame);
 
         PacMan pacpac = this.getMyPacman();
         AixiaPacmanGame self = this;
-
 
 
         frame.addKeyListener(new KeyListener() {
@@ -214,7 +202,6 @@ public class AixiaPacmanGame extends Observable implements Runnable{
 
                 //}
             }
-
             @Override
             public void keyReleased(KeyEvent e) {
 
@@ -222,10 +209,9 @@ public class AixiaPacmanGame extends Observable implements Runnable{
 
         });
 
-
-        }
-
-
+        this.score.setScore('B');
+        this.frameRefresh(this.frame);
+    }
 
     public final void move() throws InterruptedException {
         while (true) {
@@ -243,13 +229,16 @@ public class AixiaPacmanGame extends Observable implements Runnable{
             }
         }
     }
-
+    /**
+     * Permet de configurer la fenetre
+     * @param frame fenetre du jeu
+     * */
     public final void frameConfigure(final BoardFrame frame) {
-
         for (int x = 0; x < this.getMap().getWidth(); x++) {
             for (int y = 0; y < this.getMap().getHeight(); y++) {
                 Element e = this.getMap().getOnTheMapXY(x,y);
                 frame.addSquare(e, x, y);
+
                 if (e.getSprite() == ' '){
                     try {
                         frame.addPawn(new Coin(x, y, this.getMap()));
@@ -261,9 +250,15 @@ public class AixiaPacmanGame extends Observable implements Runnable{
         }
         frame.addPawn(this.getMyPacman());
         this.addObserver(frame.getObserver());
-
+        this.setChanged();
+        this.notifyObservers();
         frame.setVisible(true);
     }
 
+    private final void frameRefresh(final BoardFrame frame){
 
+        this.score.show(frame);
+        this.setChanged();
+        this.notifyObservers();
+    }
 }
