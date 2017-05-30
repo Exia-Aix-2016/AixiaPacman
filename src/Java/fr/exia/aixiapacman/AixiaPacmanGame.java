@@ -1,6 +1,7 @@
 package fr.exia.aixiapacman;
 
 import fr.exia.aixiapacman.element.Element;
+import fr.exia.aixiapacman.element.motionless.MotionlessElementsFactory;
 import fr.exia.aixiapacman.element.mobile.Ghost;
 import fr.exia.aixiapacman.element.motionless.Score;
 import fr.exia.aixiapacman.element.motionless.Coin;
@@ -157,54 +158,37 @@ public class AixiaPacmanGame extends Observable implements Runnable{
                 //if (pacpac.isAlive()) {
                     switch (keyCode) {
                         case KeyEvent.VK_LEFT:
-                            System.out.println("left");
                             if (pacpac.canGoLeft()){
                                 pacpac.setDirection('w');
                             }
                             pacpac.moveLeft();
-                            self.frameConfigure(self.frame);
-                            self.frameRefresh(self.frame);
-                            self.setChanged();
-                            self.notifyObservers();
-
                             break;
                         case KeyEvent.VK_UP:
-                            System.out.println("up");
                             if (pacpac.canGoUp()){
                                 pacpac.setDirection('n');
                             }
                             pacpac.moveUp();
-                            self.frameConfigure(self.frame);
-                            self.frameRefresh(self.frame);
-                            self.setChanged();
-                            self.notifyObservers();
 
                             break;
                         case KeyEvent.VK_RIGHT:
-                            System.out.println("Right");
                             if (pacpac.canGoRight()){
                                 pacpac.setDirection('e');
                             }
                             pacpac.moveRight();
-                            self.frameConfigure(self.frame);
-                            self.frameRefresh(self.frame);
-                            self.setChanged();
-                            self.notifyObservers();
-
                             break;
                         case KeyEvent.VK_DOWN:
-                            System.out.println("Down");
                             if (pacpac.canGoDown()){
                                 pacpac.setDirection('s');
                             }
                             pacpac.moveDown();
-                            self.frameConfigure(self.frame);
-                            self.frameRefresh(self.frame);
-                            self.setChanged();
-                            self.notifyObservers();
-
                             break;
                     }
+                self.printElementAt();
+                System.out.println(pacpac.getX()+ " "+ pacpac.getY());
+                self.frameRefresh(self.frame);
+                self.setChanged();
+                self.notifyObservers();
+
                 for(int i =0; i < tabghost.size(); i++) {
                     int nb = (int) (Math.random() * 4);
                     switch (nb) {
@@ -266,6 +250,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
      * @param frame fenetre du jeu
      * */
     public final void frameConfigure(final BoardFrame frame) {
+        //frame.getContentPane().removeAll();
         for (int x = 0; x < this.getMap().getWidth(); x++) {
             for (int y = 0; y < this.getMap().getHeight(); y++) {
                 Element e = this.getMap().getOnTheMapXY(x,y);
@@ -286,6 +271,21 @@ public class AixiaPacmanGame extends Observable implements Runnable{
         this.score.show(frame);
         this.setChanged();
         this.notifyObservers();
+    }
+
+    private void printElementAt(){
+
+        int x = this.getMyPacman().getX();
+        int y = this.getMyPacman().getY();
+
+        System.out.println(x + " : "+ y);
+        System.out.println(this.getMap().getOnTheMapXY(x, y));
+
+        if(this.getMap().getOnTheMapXY(x, y).getSprite() == 'C'){
+            this.frame.addSquare(MotionlessElementsFactory.createFloor(), x, y);
+            this.getMap().removeOnTheMapXY(x, y);
+        }
+
     }
 
     private final void countCoin(){

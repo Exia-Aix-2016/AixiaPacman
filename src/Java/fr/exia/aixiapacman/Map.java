@@ -71,16 +71,12 @@ public class Map {
             line = buffer.readLine();
             y++;
         }
-
         for(int Y = 0; Y < this.getHeight(); Y++){
             for(int X = 0; X < this.getWidth(); X++){
-                System.out.println("test");
                 if(this.getOnTheMapXY(X, Y).getSprite() == ' '){
                     this.setOnTheMapXY(MotionlessElementsFactory.createCoin(), X, Y);
                 }
-
             }
-
         }
         buffer.close();
 
