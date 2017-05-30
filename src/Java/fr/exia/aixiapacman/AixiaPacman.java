@@ -19,7 +19,7 @@ public abstract class AixiaPacman {
      *             Signals that an I/O exception has occurred.
      */
     public static void main(final String[] args) throws IOException, InterruptedException {
-        final AixiaPacmanGame insaneVehiclesGame = new AixiaPacmanGame();
-        insaneVehiclesGame.move();
+        final AixiaPacmanGame AixiaPacmanGame = new AixiaPacmanGame();
+        AixiaPacmanGame.move();
     }
 }
