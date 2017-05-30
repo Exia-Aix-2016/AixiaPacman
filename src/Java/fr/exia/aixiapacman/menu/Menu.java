@@ -1,4 +1,5 @@
-import java.awt.BorderLayout;
+package fr.exia.aixiapacman.menu;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -7,13 +8,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 
 public class Menu extends JPanel{ 
 		public JLabel label = new JLabel("JLabel");
@@ -24,11 +24,14 @@ public class Menu extends JPanel{
 		  
 		 Image img;
 		try {
-			img = ImageIO.read(new File("Pacman Menu.jpg"));
+			InputStream in = getClass().getResourceAsStream("menu.jpg");
+			img = ImageIO.read(in);
 			g.setColor(getBackground());
 			g.fillRect(0, 0, getWidth(), getHeight());
 			g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 		} catch (IOException e) {
+
+
 			e.printStackTrace();
 		}
 			Font font = new Font("showcard gothic", Font.BOLD, 50);

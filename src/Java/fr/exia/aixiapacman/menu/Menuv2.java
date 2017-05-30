@@ -1,3 +1,5 @@
+package fr.exia.aixiapacman.menu;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -6,12 +8,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 public class Menuv2 extends JPanel{ 
 	JPanel boutonPane = new JPanel();
@@ -23,7 +24,8 @@ public class Menuv2 extends JPanel{
 	  public void paintComponent(Graphics g){
 		  Image img;
 		try {
-			img = ImageIO.read(new File("Pacman Menu.jpg"));
+			InputStream in = getClass().getResourceAsStream("menu.jpg");
+			img = ImageIO.read(in);
 			g.setColor(getBackground());
 			g.fillRect(0, 0, getWidth(), getHeight());
 			g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);

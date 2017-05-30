@@ -1,5 +1,7 @@
 package fr.exia.aixiapacman;
 
+import fr.exia.aixiapacman.menu.Fenetre;
+
 import java.io.IOException;
 
 /**
@@ -19,7 +21,11 @@ public abstract class AixiaPacman {
      *             Signals that an I/O exception has occurred.
      */
     public static void main(final String[] args) throws IOException, InterruptedException {
-        final AixiaPacmanGame AixiaPacmanGame = new AixiaPacmanGame();
-        AixiaPacmanGame.move();
+
+        Fenetre fen = new Fenetre();
+        //final AixiaPacmanGame AixiaPacmanGame = new AixiaPacmanGame();
+
+
+        //AixiaPacmanGame.move();
     }
 }
