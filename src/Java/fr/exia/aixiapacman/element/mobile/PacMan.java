@@ -3,6 +3,7 @@ package fr.exia.aixiapacman.element.mobile;
 import fr.exia.aixiapacman.AixiaPacmanGame;
 import fr.exia.aixiapacman.element.Permeability;
 
+import java.awt.*;
 import java.io.IOException;
 
 /**
@@ -16,6 +17,7 @@ public class PacMan extends Mobile {
     /** The Constant SPRITE. */
     private static final char SPRITE = 'H';
     private static final String IMAGE = "Pacman.png";
+    private char direction = 'e';
 
     /**
      * Instantiates a new PacMan.
@@ -29,5 +31,24 @@ public class PacMan extends Mobile {
      */
     public PacMan(final int x, final int y, final fr.exia.aixiapacman.Map map) throws IOException{
         super(x, y, IMAGE, SPRITE, map, Permeability.BLOCKING);
+    }
+
+    @Override
+    public Image getImage() {
+        this.setImageName("pacman_" + this.direction + ".png");
+        try {
+            this.loadImage();
+        } catch (Exception e){
+
+        }
+        return super.getImage();
+    }
+
+    public void setDirection(char direction) {
+        this.direction = direction;
+    }
+
+    public char getDirection() {
+        return direction;
     }
 }

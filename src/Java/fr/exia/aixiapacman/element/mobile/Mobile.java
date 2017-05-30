@@ -45,14 +45,18 @@ abstract class Mobile extends Element implements IPawn {
         this.setY(y);
     }
 
+
+    public boolean canGoUp(){
+        Element test = getMap().getOnTheMapXY(x ,y-1);
+        return !(test.getSprite() == 'X');
+    }
     /**
      * Move up.
      */
     public void moveUp() {
-        Element test = getMap().getOnTheMapXY(x ,y-1);
-        if(test.getSprite() == 'X')
+        if(this.canGoUp())
         {
-            System.out.println("No Move");
+            this.setY(this.getY() - 1);
         }
         else if(test.getSprite() == 'C'){
 
@@ -63,19 +67,21 @@ abstract class Mobile extends Element implements IPawn {
         }
         else
         {
-            this.setY(this.getY() - 1);
+            System.out.println("No Move");
         }
     }
 
-
+    public boolean canGoLeft(){
+        Element test = getMap().getOnTheMapXY(x -1,y);
+        return !(test.getSprite() == 'X');
+    }
     /**
      * Move left.
      */
     public void moveLeft() {
-        Element test = getMap().getOnTheMapXY(x -1,y);
-        if(test.getSprite() == 'X')
+        if(this.canGoLeft())
         {
-            System.out.println("No Move");
+            this.setX(this.getX() - 1);
         }
         else if(test.getSprite() == 'C'){
 
@@ -85,18 +91,21 @@ abstract class Mobile extends Element implements IPawn {
         }
         else
         {
-            this.setX(this.getX() - 1);
+            System.out.println("No Move");
         }
     }
 
+    public boolean canGoDown(){
+        Element test = getMap().getOnTheMapXY(x ,y+1);
+        return !(test.getSprite() == 'X');
+    }
     /**
      * Move down.
      */
     public void moveDown() {
-        Element test = getMap().getOnTheMapXY(x ,y+1);
-        if(test.getSprite() == 'X')
+        if(this.canGoDown())
         {
-            System.out.println("No Move");
+            this.setY(this.getY() + 1);
         }
         else if(test.getSprite() == 'C'){
 
@@ -107,19 +116,22 @@ abstract class Mobile extends Element implements IPawn {
         }
         else
         {
-            this.setY(this.getY() + 1);
-
+            System.out.println("No Move");
         }
     }
 
+    public boolean canGoRight(){
+        Element test = getMap().getOnTheMapXY(x +1,y);
+        return !(test.getSprite() == 'X');
+    }
     /**
      * Move right.
      */
     public void moveRight() {
-        Element test = getMap().getOnTheMapXY(x +1,y);
-        if(test.getSprite() == 'X')
+
+        if(this.canGoRight())
         {
-            System.out.println("No Move");
+            this.setX(this.getX() + 1);
         }
         else if(test.getSprite() == 'C'){
 
@@ -130,7 +142,7 @@ abstract class Mobile extends Element implements IPawn {
         }
         else
         {
-            this.setX(this.getX() + 1);
+            System.out.println("No Move");
         }
     }
 

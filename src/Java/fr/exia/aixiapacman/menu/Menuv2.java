@@ -1,6 +1,7 @@
 package fr.exia.aixiapacman.menu;
 
 import fr.exia.aixiapacman.AixiaPacmanGame;
+import fr.exia.aixiapacman.element.sound.Sound;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -96,6 +97,8 @@ public class Menuv2 extends JPanel{
 	  	if(!this.launched){
 			this.fen.setVisible(false);
 			final AixiaPacmanGame AixiaPacmanGame = new AixiaPacmanGame();
+			Sound sound = new Sound();
+			sound.playSound("pacman_beginning");
 		}
 		this.launched = true;
 
