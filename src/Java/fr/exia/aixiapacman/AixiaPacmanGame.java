@@ -59,6 +59,10 @@ public class AixiaPacmanGame extends Observable implements Runnable{
     /** The view. */
     private int              view;
 
+    private BoardFrame frame;
+
+
+
     /**
      * Instantiates a new insane vehicles games.
      *
@@ -73,6 +77,12 @@ public class AixiaPacmanGame extends Observable implements Runnable{
             this.setMap(new Map("map.txt", MapQuota));
             this.setMyPacman(new PacMan(startX, startY, this.getMap()));
         } catch (IOException e){}
+
+        this.frame = new BoardFrame("Pacman");
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.setDimension(new Dimension(this.getMap().getWidth(), this.getMap().getHeight()));
+        frame.setDisplayFrame(new Rectangle(0 , 0,this.getMap().getWidth()*2, this.getMap().getHeight()));
+        this.frameConfigure(frame);
 
         SwingUtilities.invokeLater(this);
     }
@@ -191,14 +201,6 @@ public class AixiaPacmanGame extends Observable implements Runnable{
     }
 
     public void run(){
-
-        final BoardFrame frame = new BoardFrame("Pacman");
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setDimension(new Dimension(this.getMap().getWidth(), this.getMap().getHeight()));
-        frame.setDisplayFrame(new Rectangle(0 , 0,this.getMap().getWidth()*2, this.getMap().getHeight()));
-
-        this.frameConfigure(frame);
-
         PacMan pacpac = this.getMyPacman();
         AixiaPacmanGame self = this;
 
@@ -237,7 +239,6 @@ public class AixiaPacmanGame extends Observable implements Runnable{
                     }
                 }
             }
-
             @Override
             public void keyReleased(KeyEvent e) {}
         });
@@ -268,14 +269,14 @@ public class AixiaPacmanGame extends Observable implements Runnable{
                 frame.addSquare(e, x, y);
             }
         }
-        //Element lettre = MotionlessElementsFactory.createLetter('L', "A.png");
-        //frame.addSquare(lettre, 10, 10);
 
-        Score score = new Score("Test", 20, 0);
+        Score score = new Score("Score", 20, 0);
 
         for(int i = 0; i < score.getMots().size(); i++){
 
+
             frame.addSquare((Element)score.getMots().get(i), i, 0);
+
         }
 
         frame.addPawn(this.getMyPacman());
