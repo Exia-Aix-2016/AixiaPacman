@@ -213,7 +213,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
         this.frameRefresh(this.frame);
     }
 
-    public final void move() throws InterruptedException {
+    public void move() throws InterruptedException {
         while (true) {
 
             if (this.getMyPacman().isAlive()){
