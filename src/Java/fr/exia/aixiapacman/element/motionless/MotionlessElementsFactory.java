@@ -11,7 +11,7 @@ import fr.exia.aixiapacman.element.mobile.Coin;
 public abstract class MotionlessElementsFactory {
 
     /** The Constant WALL. */
-    private static final Wall         WALL            = new Wall();
+    private static final Wall     WALL            = new Wall();
 
     /** The Constant FLOOR. */
     private static final Floor    FLOOR        = new Floor();
@@ -40,6 +40,12 @@ public abstract class MotionlessElementsFactory {
     public static MotionlessElement createFloor() {
         return FLOOR;
     }
+
+
+    public static MotionlessElement createLetter(final char letter, final String filename){
+        return new Letter(letter, filename);
+    }
+
 
     /**
      * Gets the good MotionlessElement from file symbol.
