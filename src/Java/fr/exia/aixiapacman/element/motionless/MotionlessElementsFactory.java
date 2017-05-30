@@ -1,7 +1,5 @@
 package fr.exia.aixiapacman.element.motionless;
 
-import fr.exia.aixiapacman.element.mobile.Coin;
-
 /**
  * <h1>A factory for creating MotionlessElements objects.</h1>
  *
@@ -15,6 +13,7 @@ public abstract class MotionlessElementsFactory {
 
     /** The Constant FLOOR. */
     private static final Floor    FLOOR        = new Floor();
+    private static final Coin COIN = new Coin();
 
 
     /**
@@ -45,7 +44,9 @@ public abstract class MotionlessElementsFactory {
     public static MotionlessElement createLetter(final char letter, final String filename){
         return new Letter(letter, filename);
     }
-
+    public static MotionlessElement createCoin(){
+        return COIN;
+    }
 
     /**
      * Gets the good MotionlessElement from file symbol.
@@ -56,7 +57,7 @@ public abstract class MotionlessElementsFactory {
      */
     public static MotionlessElement getFromFileSymbol(final char fileSymbol) {
         for (final MotionlessElement motionlessElement : motionlessElements) {
-            if (motionlessElement.getSprite() == fileSymbol) {
+            if (motionlessElement.getSprite() == fileSymbol && fileSymbol != 'C') {
 
                 return motionlessElement;
             }

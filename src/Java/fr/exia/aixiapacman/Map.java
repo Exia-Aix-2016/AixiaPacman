@@ -71,7 +71,19 @@ public class Map {
             line = buffer.readLine();
             y++;
         }
+
+        for(int Y = 0; Y < this.getHeight(); Y++){
+            for(int X = 0; X < this.getWidth(); X++){
+                System.out.println("test");
+                if(this.getOnTheMapXY(X, Y).getSprite() == ' '){
+                    this.setOnTheMapXY(MotionlessElementsFactory.createCoin(), X, Y);
+                }
+
+            }
+
+        }
         buffer.close();
+
     }
 
     /**
@@ -156,6 +168,9 @@ public class Map {
      */
     public final void setOnTheMapXY(final Element element, final int x, final int y) {
         this.onTheMap[x][y] = element;
+    }
+    public final void removeOnTheMapXY(final int x, final int y) {
+        this.onTheMap[x][y] = MotionlessElementsFactory.createFloor();
     }
 
 }

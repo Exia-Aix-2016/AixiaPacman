@@ -3,6 +3,8 @@ package fr.exia.aixiapacman.element.mobile;
 import com.sun.org.apache.xpath.internal.SourceTree;
 import fr.exia.aixiapacman.element.Element;
 import fr.exia.aixiapacman.element.Permeability;
+import fr.exia.aixiapacman.element.motionless.Floor;
+import fr.exia.aixiapacman.element.motionless.MotionlessElementsFactory;
 import fr.exia.showboard.IPawn;
 
 import java.awt.*;
@@ -56,6 +58,13 @@ abstract class Mobile extends Element implements IPawn {
         {
             this.setY(this.getY() - 1);
         }
+        else if(test.getSprite() == 'C'){
+
+            this.getMap().removeOnTheMapXY(this.getX(), this.getY() - 1);
+            System.out.println("COIN");
+            this.setY(this.getY() - 1);
+
+        }
         else
         {
             System.out.println("No Move");
@@ -72,6 +81,12 @@ abstract class Mobile extends Element implements IPawn {
     public void moveLeft() {
         if(this.canGoLeft())
         {
+            this.setX(this.getX() - 1);
+        }
+        else if(test.getSprite() == 'C'){
+
+            this.getMap().removeOnTheMapXY(this.getX() - 1, this.getY());
+            System.out.println("COIN");
             this.setX(this.getX() - 1);
         }
         else
@@ -92,6 +107,13 @@ abstract class Mobile extends Element implements IPawn {
         {
             this.setY(this.getY() + 1);
         }
+        else if(test.getSprite() == 'C'){
+
+            this.getMap().removeOnTheMapXY(this.getX(), this.getY() + 1);
+            System.out.println("COIN");
+            this.setY(this.getY() + 1);
+
+        }
         else
         {
             System.out.println("No Move");
@@ -110,6 +132,13 @@ abstract class Mobile extends Element implements IPawn {
         if(this.canGoRight())
         {
             this.setX(this.getX() + 1);
+        }
+        else if(test.getSprite() == 'C'){
+
+            this.getMap().removeOnTheMapXY(this.getX() + 1, this.getY());
+            System.out.println("COIN");
+            this.setX(this.getX() + 1);
+
         }
         else
         {
