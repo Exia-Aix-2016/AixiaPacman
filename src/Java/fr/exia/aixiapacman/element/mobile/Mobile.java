@@ -56,7 +56,7 @@ abstract class Mobile extends Element implements IPawn {
         }
         else if(test.getSprite() == 'C'){
 
-            this.getMap().removeOnTheMapXY(this.getX(), this.getY());
+            this.getMap().removeOnTheMapXY(this.getX(), this.getY() - 1);
             System.out.println("COIN");
             this.setY(this.getY() - 1);
 
@@ -79,7 +79,7 @@ abstract class Mobile extends Element implements IPawn {
         }
         else if(test.getSprite() == 'C'){
 
-            this.getMap().removeOnTheMapXY(this.getX(), this.getY());
+            this.getMap().removeOnTheMapXY(this.getX() - 1, this.getY());
             System.out.println("COIN");
             this.setX(this.getX() - 1);
         }
@@ -100,7 +100,7 @@ abstract class Mobile extends Element implements IPawn {
         }
         else if(test.getSprite() == 'C'){
 
-            this.getMap().removeOnTheMapXY(this.getX(), this.getY());
+            this.getMap().removeOnTheMapXY(this.getX(), this.getY() + 1);
             System.out.println("COIN");
             this.setY(this.getY() + 1);
 
@@ -123,7 +123,7 @@ abstract class Mobile extends Element implements IPawn {
         }
         else if(test.getSprite() == 'C'){
 
-            this.getMap().removeOnTheMapXY(this.getX(), this.getY());
+            this.getMap().removeOnTheMapXY(this.getX() + 1, this.getY());
             System.out.println("COIN");
             this.setX(this.getX() + 1);
 

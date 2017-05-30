@@ -60,6 +60,8 @@ public class AixiaPacmanGame extends Observable implements Runnable{
     /** The view. */
     private int              view;
 
+    private int nbrCoin = 0;
+
     private BoardFrame frame;
     private Score score;
 
@@ -151,6 +153,8 @@ public class AixiaPacmanGame extends Observable implements Runnable{
         this.frame.setDimension(new Dimension(this.getMap().getWidth(), this.getMap().getHeight()));
         this.frame.setDisplayFrame(new Rectangle(0 , 0,this.getMap().getWidth()*2, this.getMap().getHeight()));
         this.frameConfigure(frame);
+        this.countCoin();
+        System.out.println("Nbr piece : " + this.nbrCoin);
 
         PacMan pacpac = this.getMyPacman();
         AixiaPacmanGame self = this;
@@ -170,34 +174,36 @@ public class AixiaPacmanGame extends Observable implements Runnable{
                         case KeyEvent.VK_LEFT:
                             System.out.println("left");
                             pacpac.moveLeft();
+                            self.frameConfigure(self.frame);
+                            self.frameRefresh(self.frame);
                             self.setChanged();
                             self.notifyObservers();
                             break;
                         case KeyEvent.VK_UP:
                             System.out.println("up");
                             pacpac.moveUp();
+                            self.frameConfigure(self.frame);
+                            self.frameRefresh(self.frame);
                             self.setChanged();
                             self.notifyObservers();
                             break;
                         case KeyEvent.VK_RIGHT:
                             System.out.println("Right");
                             pacpac.moveRight();
+                            self.frameConfigure(self.frame);
+                            self.frameRefresh(self.frame);
                             self.setChanged();
                             self.notifyObservers();
                             break;
                         case KeyEvent.VK_DOWN:
                             System.out.println("Down");
                             pacpac.moveDown();
+                            self.frameConfigure(self.frame);
+                            self.frameRefresh(self.frame);
                             self.setChanged();
                             self.notifyObservers();
                             break;
-
                     }
-                    //while(KeyEvent() == ){
-                    //    pacpac.moveRight();
-                    //}
-
-                //}
             }
             @Override
             public void keyReleased(KeyEvent e) {
@@ -206,7 +212,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
 
         });
 
-        this.score.setScore('B');
+        this.score.setScore('A');
         this.frameRefresh(this.frame);
     }
 
@@ -235,14 +241,6 @@ public class AixiaPacmanGame extends Observable implements Runnable{
             for (int y = 0; y < this.getMap().getHeight(); y++) {
                 Element e = this.getMap().getOnTheMapXY(x,y);
                 frame.addSquare(e, x, y);
-
-                /*if (e.getSprite() == ' '){
-                    try {
-                        //frame.addSquare(new Coin(), x, y);
-                    } catch (Exception ex){
-                        System.err.println(ex);
-                    }
-                }*/
             }
         }
         frame.addPawn(this.getMyPacman());
@@ -257,5 +255,16 @@ public class AixiaPacmanGame extends Observable implements Runnable{
         this.score.show(frame);
         this.setChanged();
         this.notifyObservers();
+    }
+
+    private final void countCoin(){
+        for (int x = 0; x < this.getMap().getWidth(); x++) {
+            for (int y = 0; y < this.getMap().getHeight(); y++) {
+                Element e = this.getMap().getOnTheMapXY(x,y);
+                if(e.getSprite() == 'C'){
+                    this.nbrCoin++;
+                }
+            }
+        }
     }
 }
