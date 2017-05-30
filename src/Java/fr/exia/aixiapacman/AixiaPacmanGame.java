@@ -299,6 +299,24 @@ public class AixiaPacmanGame extends Observable implements Runnable{
                 }
             }
         }
+        this.calculScore();
+    }
+
+    private void calculScore(){
+
+        int max = 271;
+
+        String result = "D";
+
+        if (this.nbrCoin < max *0.8 && this.nbrCoin > max * 0.6){
+            result = "C";
+        } else if (this.nbrCoin < max *0.6 && this.nbrCoin > max * 0.4){
+            result = "B";
+        } else if (this.nbrCoin < max * 0.4){
+            result = "A";
+        }
+
+        this.score.setMots(result);
     }
 
 }
