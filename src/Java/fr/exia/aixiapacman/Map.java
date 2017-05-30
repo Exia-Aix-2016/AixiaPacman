@@ -30,24 +30,6 @@ public class Map {
     private Element[][] onTheMap;
 
     /**
-     * Instantiates randomly a new Map.
-     *
-     * @param width
-     *            the width
-     * @param height
-     *            the height
-     * @param quota
-     *            the quota
-     */
-    public Map(final int width, final int height, final int quota) {
-        this.setWidth(width);
-        this.setHeight(height);
-        this.setQuota(quota);
-        this.onTheMap = new Element[this.getWidth()][this.getHeight()];
-        this.fillOnTheMap();
-    }
-
-    /**
      * Instantiates a new Map with the content of the file fileName.
      *
      * @param fileName
@@ -60,25 +42,6 @@ public class Map {
     public Map(final String fileName, final int quota) throws IOException {
         this.setQuota(quota);
         this.loadFile(fileName);
-    }
-
-    /**
-     * Fill randomly the Map.
-     */
-    private void fillOnTheMap() {
-        final Random random = new Random();
-
-        for (int y = 0; y < this.getHeight(); y++) {
-            for (int x = 0; x < this.getWidth(); x++) {
-                if ((x == 0) || (x == (this.getWidth() - 1))) {
-                    this.setOnTheMapXY(MotionlessElementsFactory.createWall(), x, y);
-                } else if ((random.nextInt() % this.getQuota()) == 0) {
-                    this.setOnTheMapXY(MotionlessElementsFactory.createCoin(), x, y);
-                } else {
-                    this.setOnTheMapXY(MotionlessElementsFactory.createFloor(), x, y);
-                }
-            }
-        }
     }
 
     /**
@@ -103,7 +66,6 @@ public class Map {
         line = buffer.readLine();
         while (line != null) {
             for (int x = 0; x < line.toCharArray().length; x++) {
-
                 this.setOnTheMapXY(MotionlessElementsFactory.getFromFileSymbol(line.toCharArray()[x]), x, y);
             }
             line = buffer.readLine();
