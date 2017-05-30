@@ -1,5 +1,6 @@
 package fr.exia.aixiapacman.element.mobile;
 
+import fr.exia.aixiapacman.AixiaPacmanGame;
 import fr.exia.aixiapacman.element.Permeability;
 
 import java.io.IOException;

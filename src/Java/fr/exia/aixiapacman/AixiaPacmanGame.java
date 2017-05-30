@@ -154,7 +154,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
         this.frame.setDisplayFrame(new Rectangle(0 , 0,this.getMap().getWidth()*2, this.getMap().getHeight()));
         this.frameConfigure(frame);
         this.countCoin();
-        System.out.println("Nbr piece : " + this.nbrCoin);
+
 
         PacMan pacpac = this.getMyPacman();
         AixiaPacmanGame self = this;
@@ -178,6 +178,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
                             self.frameRefresh(self.frame);
                             self.setChanged();
                             self.notifyObservers();
+
                             break;
                         case KeyEvent.VK_UP:
                             System.out.println("up");
@@ -186,6 +187,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
                             self.frameRefresh(self.frame);
                             self.setChanged();
                             self.notifyObservers();
+
                             break;
                         case KeyEvent.VK_RIGHT:
                             System.out.println("Right");
@@ -194,6 +196,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
                             self.frameRefresh(self.frame);
                             self.setChanged();
                             self.notifyObservers();
+
                             break;
                         case KeyEvent.VK_DOWN:
                             System.out.println("Down");
@@ -202,12 +205,14 @@ public class AixiaPacmanGame extends Observable implements Runnable{
                             self.frameRefresh(self.frame);
                             self.setChanged();
                             self.notifyObservers();
+
                             break;
                     }
             }
             @Override
             public void keyReleased(KeyEvent e) {
-
+                self.countCoin();
+                System.out.println("Nbr piece : " + self.nbrCoin);
             }
 
         });
@@ -258,6 +263,8 @@ public class AixiaPacmanGame extends Observable implements Runnable{
     }
 
     private final void countCoin(){
+
+        this.nbrCoin = 0;
         for (int x = 0; x < this.getMap().getWidth(); x++) {
             for (int y = 0; y < this.getMap().getHeight(); y++) {
                 Element e = this.getMap().getOnTheMapXY(x,y);
@@ -267,4 +274,5 @@ public class AixiaPacmanGame extends Observable implements Runnable{
             }
         }
     }
+
 }
