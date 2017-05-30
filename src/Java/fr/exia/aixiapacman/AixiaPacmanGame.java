@@ -1,6 +1,7 @@
 package fr.exia.aixiapacman;
 
 import fr.exia.aixiapacman.element.Element;
+import fr.exia.aixiapacman.element.mobile.Ghost;
 import fr.exia.aixiapacman.element.motionless.Score;
 import fr.exia.aixiapacman.element.mobile.Coin;
 import fr.exia.aixiapacman.element.mobile.PacMan;
@@ -59,6 +60,15 @@ public class AixiaPacmanGame extends Observable implements Runnable{
     /** The my vehicle. */
     private PacMan pacman;
 
+    private Ghost ghost1;
+    private Ghost ghost2;
+    private Ghost ghost3;
+    private Ghost ghost4;
+
+
+
+
+
     /** The view. */
     private int              view;
 
@@ -80,6 +90,10 @@ public class AixiaPacmanGame extends Observable implements Runnable{
         try {
             this.setMap(new Map("map.txt", MapQuota));
             this.setMyPacman(new PacMan(startX, startY, this.getMap()));
+            this.setGhost1(new Ghost(10,12,this.getMap()));
+            this.setGhost2(new Ghost(11,12,this.getMap()));
+            this.setGhost3(new Ghost(12,12,this.getMap()));
+            this.setGhost4(new Ghost(13,12,this.getMap()));
         } catch (IOException e){}
 
         //Creation du score
@@ -136,6 +150,35 @@ public class AixiaPacmanGame extends Observable implements Runnable{
 
     public final void setMyPacman(final PacMan pacman) {
         this.pacman = pacman;
+    }
+
+    public final Ghost getGhost1(){
+        return this.ghost1;
+    }
+
+    public final void setGhost1(final Ghost ghost1){
+        this.ghost1 = ghost1;
+    }
+    public final Ghost getGhost2(){
+        return this.ghost2;
+    }
+
+    public final void setGhost2(final Ghost ghost2){
+        this.ghost2 = ghost2;
+    }
+    public final Ghost getGhost3(){
+        return this.ghost3;
+    }
+
+    public final void setGhost3(final Ghost ghost3){
+        this.ghost3 = ghost3;
+    }
+    public final Ghost getGhost4(){
+        return this.ghost4;
+    }
+
+    public final void setGhost4(final Ghost ghost4){
+        this.ghost4 = ghost4;
     }
 
     public final int getView() {
@@ -201,11 +244,76 @@ public class AixiaPacmanGame extends Observable implements Runnable{
                     //}
 
                 //}
+                int nb = (int)(Math.random()*4);
+                switch(nb){
+                    case 1:
+                        ghost1.moveUp();
+                        System.out.println("ghost1 up");
+                    case 2:
+                        ghost1.moveDown();
+                        System.out.println("ghost1 down");
+                    case 3:
+                        ghost1.moveLeft();
+                        System.out.println("ghost1 left");
+                    case 4:
+                        ghost1.moveRight();
+                        System.out.println("ghost1 right");
+                }
+                nb = (int)(Math.random()*4);
+                switch(nb){
+                    case 0:
+                        ghost2.moveUp();
+                        System.out.println("ghost2 up");
+                    case 1:
+                        ghost2.moveDown();
+                        System.out.println("ghost2 down");
+                    case 2:
+                        ghost2.moveLeft();
+                        System.out.println("ghost2 left");
+                    case 3:
+                        ghost2.moveRight();
+                        System.out.println("ghost2 right");
+                }
+                nb = (int)(Math.random()*4);
+                switch(nb){
+                    case 0:
+                        ghost3.moveUp();
+                        System.out.println("ghost3 up");
+                    case 1:
+                        ghost3.moveDown();
+                        System.out.println("ghost3 down");
+                    case 2:
+                        ghost3.moveLeft();
+                        System.out.println("ghost3 left");
+                    case 3:
+                        ghost3.moveRight();
+                        System.out.println("ghost3 right");
+                }
+                nb = (int)(Math.random()*4);
+                switch(nb){
+                    case 0:
+                        ghost4.moveUp();
+                        System.out.println("ghost4 up");
+                    case 1:
+                        ghost4.moveDown();
+                        System.out.println("ghost4 down");
+                    case 2:
+                        ghost4.moveLeft();
+                        System.out.println("ghost4 left");
+                    case 3:
+                        ghost4.moveRight();
+                        System.out.println("ghost4 right");
+                }
             }
             @Override
             public void keyReleased(KeyEvent e) {
 
             }
+
+
+
+
+
 
         });
 
@@ -249,6 +357,10 @@ public class AixiaPacmanGame extends Observable implements Runnable{
             }
         }
         frame.addPawn(this.getMyPacman());
+        frame.addPawn(this.getGhost1());
+        //frame.addPawn(this.getGhost2());
+        //frame.addPawn(this.getGhost3());
+        //frame.addPawn(this.getGhost4());
         this.addObserver(frame.getObserver());
         this.setChanged();
         this.notifyObservers();
