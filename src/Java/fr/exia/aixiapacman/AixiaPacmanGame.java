@@ -6,6 +6,7 @@ import fr.exia.aixiapacman.element.motionless.Score;
 import fr.exia.aixiapacman.element.mobile.Coin;
 import fr.exia.aixiapacman.element.mobile.PacMan;
 import fr.exia.aixiapacman.element.motionless.*;
+import fr.exia.aixiapacman.element.sound.Sound;
 import fr.exia.showboard.BoardFrame;
 import jdk.internal.util.xml.impl.Input;
 
@@ -186,6 +187,8 @@ public class AixiaPacmanGame extends Observable implements Runnable{
             @Override
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
+                Sound sound = new Sound();
+                sound.playSound("pacman_chomp");
                 //if (pacpac.isAlive()) {
                     switch (keyCode) {
                         case KeyEvent.VK_LEFT:
