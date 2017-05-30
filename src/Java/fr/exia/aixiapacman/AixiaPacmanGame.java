@@ -166,9 +166,12 @@ public class AixiaPacmanGame extends Observable implements Runnable{
         this.frameConfigure(frame);
 
         PacMan pacpac = this.getMyPacman();
-
         AixiaPacmanGame self = this;
+
+
+
         frame.addKeyListener(new KeyListener() {
+
             @Override
             public void keyTyped(KeyEvent e) {
 
@@ -180,11 +183,13 @@ public class AixiaPacmanGame extends Observable implements Runnable{
                 //if (pacpac.isAlive()) {
                     switch (keyCode) {
                         case KeyEvent.VK_LEFT:
+                            //if (){
                             System.out.println("left");
                             pacpac.moveLeft();
                             self.setChanged();
                             self.notifyObservers();
                             break;
+                        //}
                         case KeyEvent.VK_UP:
                             System.out.println("up");
                             pacpac.moveUp();
@@ -192,13 +197,13 @@ public class AixiaPacmanGame extends Observable implements Runnable{
                             self.notifyObservers();
                             break;
                         case KeyEvent.VK_RIGHT:
-                            System.out.println("left");
+                            System.out.println("Right");
                             pacpac.moveRight();
                             self.setChanged();
                             self.notifyObservers();
                             break;
                         case KeyEvent.VK_DOWN:
-                            System.out.println("left");
+                            System.out.println("Down");
                             pacpac.moveDown();
                             self.setChanged();
                             self.notifyObservers();
@@ -212,8 +217,11 @@ public class AixiaPacmanGame extends Observable implements Runnable{
             public void keyReleased(KeyEvent e) {
 
             }
+
+            public void noMove(){
+                pacpac.moveRight();
+            }
         });
-        //Loop lancement = new Loop();
 
 
         }

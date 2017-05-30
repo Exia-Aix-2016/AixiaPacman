@@ -1,5 +1,6 @@
 package fr.exia.aixiapacman.element.mobile;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
 import fr.exia.aixiapacman.element.Element;
 import fr.exia.aixiapacman.element.Permeability;
 import fr.exia.showboard.IPawn;
@@ -46,28 +47,61 @@ abstract class Mobile extends Element implements IPawn {
      * Move up.
      */
     public void moveUp() {
-        this.setY(this.getY() - 1);
+        Element test = getMap().getOnTheMapXY(x ,y-1);
+        if(test.getSprite() == 'X')
+        {
+            System.out.println("bouge pas");
+        }
+        else
+        {
+            this.setY(this.getY() - 1);
+        }
     }
+
 
     /**
      * Move left.
      */
     public void moveLeft() {
-        this.setX(this.getX() - 1);
+        Element test = getMap().getOnTheMapXY(x -1,y);
+        if(test.getSprite() == 'X')
+        {
+            System.out.println("bouge pas");
+        }
+        else
+        {
+            this.setX(this.getX() - 1);
+        }
     }
 
     /**
      * Move down.
      */
     public void moveDown() {
-        this.setY(this.getY() + 1);
+        Element test = getMap().getOnTheMapXY(x ,y+1);
+        if(test.getSprite() == 'X')
+        {
+            System.out.println("bouge pas");
+        }
+        else
+        {
+            this.setY(this.getY() + 1);
+        }
     }
 
     /**
      * Move right.
      */
     public void moveRight() {
-        this.setX(this.getX() + 1);
+        Element test = getMap().getOnTheMapXY(x +1,y);
+        if(test.getSprite() == 'X')
+        {
+            System.out.println("bouge pas");
+        }
+        else
+        {
+            this.setX(this.getX() + 1);
+        }
     }
 
     /**
