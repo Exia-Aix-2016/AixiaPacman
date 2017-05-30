@@ -32,10 +32,10 @@ public class AixiaPacmanGame extends Observable implements Runnable{
     public static final int  MapQuota  = 20;
 
     /** The Constant startX. */
-    private static final int startX     = 5;
+    private static final int startX     = 12;
 
     /** The Constant startY. */
-    private static final int startY     = 0;
+    private static final int startY     = 12;
 
     /** The Constant keyRight. */
     private static final int keyRight   = 51;
@@ -60,6 +60,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
     private int              view;
 
     private BoardFrame frame;
+    private Score score;
 
 
 
@@ -78,13 +79,21 @@ public class AixiaPacmanGame extends Observable implements Runnable{
             this.setMyPacman(new PacMan(startX, startY, this.getMap()));
         } catch (IOException e){}
 
+        //Creation du score
+        this.score = new Score("Score", 20, 0);
+        //Creation de la fenetre
         this.frame = new BoardFrame("Pacman");
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setDimension(new Dimension(this.getMap().getWidth(), this.getMap().getHeight()));
-        frame.setDisplayFrame(new Rectangle(0 , 0,this.getMap().getWidth()*2, this.getMap().getHeight()));
+        this.frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.frame.setDimension(new Dimension(this.getMap().getWidth(), this.getMap().getHeight()));
+        this.frame.setDisplayFrame(new Rectangle(0 , 0,this.getMap().getWidth()*2, this.getMap().getHeight()));
         this.frameConfigure(frame);
 
+
+
+
         SwingUtilities.invokeLater(this);
+
+        //this.run();
     }
 
     /**
@@ -204,6 +213,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
         PacMan pacpac = this.getMyPacman();
         AixiaPacmanGame self = this;
 
+
         frame.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {}
@@ -262,7 +272,6 @@ public class AixiaPacmanGame extends Observable implements Runnable{
     }
 
     public final void frameConfigure(final BoardFrame frame) {
-
         for (int x = 0; x < this.getMap().getWidth(); x++) {
             for (int y = 0; y < this.getMap().getHeight(); y++) {
                 Element e = this.getMap().getOnTheMapXY(x,y);
@@ -270,17 +279,11 @@ public class AixiaPacmanGame extends Observable implements Runnable{
             }
         }
 
-        Score score = new Score("Score", 20, 0);
-
-        for(int i = 0; i < score.getMots().size(); i++){
-
-
-            frame.addSquare((Element)score.getMots().get(i), i, 0);
-
-        }
-
         frame.addPawn(this.getMyPacman());
         this.addObserver(frame.getObserver());
+
+        this.score.setMots("Score");
+        this.score.show(frame);
 
         frame.setVisible(true);
     }

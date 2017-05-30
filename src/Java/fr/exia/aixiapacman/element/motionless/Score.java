@@ -4,6 +4,7 @@ package fr.exia.aixiapacman.element.motionless;
 import fr.exia.aixiapacman.element.Element;
 import fr.exia.aixiapacman.element.motionless.Letter;
 import fr.exia.aixiapacman.element.motionless.MotionlessElementsFactory;
+import fr.exia.showboard.BoardFrame;
 
 import java.util.ArrayList;
 
@@ -33,7 +34,6 @@ public class Score {
         for(int i = 0; i < this.name.length(); i++){
             char c = this.name.charAt(i);
             String filename = c + ".png";
-            //Element letter = new Letter(c, c + filename);
             Letter letter = new Letter(c,filename);
             mots.add(letter);
         }
@@ -48,9 +48,34 @@ public class Score {
     }
 
     public void setMots(String name) {
+        this.mots.clear();
+        name = name.toUpperCase();
+        for(int i = 0; i < name.length(); i++){
+            char c = name.charAt(i);
+            String filename = c + ".png";
+            Letter letter = new Letter(c,filename);
+            mots.add(letter);
+        }
+        Letter l = new Letter('C', "C.png");
+        mots.add(l);
 
+    }
 
+    public void show(BoardFrame frame){
+        //Print name
+        for(int i = 0; i < this.getMots().size(); i++){
 
+            frame.addSquare((Element)this.getMots().get(i), i, 0);
+
+        }
+
+    }
+    public void hide(BoardFrame frame){
+        for(int i = 0; i < this.getMots().size(); i++){
+
+            frame.addSquare(null, i, 0);
+
+        }
     }
 
     /**
