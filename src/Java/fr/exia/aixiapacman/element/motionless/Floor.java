@@ -10,7 +10,7 @@ public class Floor extends MotionlessElement {
     /**
      * Instantiates a new ditch.
      */
-    Floor(){
+    public Floor(){
         super(IMAGE, SPRITE, Permeability.BLOCKING);
     }
 

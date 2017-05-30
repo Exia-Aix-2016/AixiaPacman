@@ -96,7 +96,6 @@ public class Menuv2 extends JPanel{
 	  	if(!this.launched){
 			this.fen.setVisible(false);
 			final AixiaPacmanGame AixiaPacmanGame = new AixiaPacmanGame();
-			
 		}
 		this.launched = true;
 

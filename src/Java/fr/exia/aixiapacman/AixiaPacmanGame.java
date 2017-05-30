@@ -2,11 +2,9 @@ package fr.exia.aixiapacman;
 
 import fr.exia.aixiapacman.element.Element;
 import fr.exia.aixiapacman.element.motionless.Score;
-import fr.exia.aixiapacman.element.mobile.Coin;
+import fr.exia.aixiapacman.element.motionless.Coin;
 import fr.exia.aixiapacman.element.mobile.PacMan;
-import fr.exia.aixiapacman.element.motionless.*;
 import fr.exia.showboard.BoardFrame;
-import jdk.internal.util.xml.impl.Input;
 
 import javax.swing.*;
 import java.awt.*;
@@ -164,7 +162,6 @@ public class AixiaPacmanGame extends Observable implements Runnable{
             public void keyTyped(KeyEvent e) {
 
             }
-
             @Override
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
@@ -239,13 +236,13 @@ public class AixiaPacmanGame extends Observable implements Runnable{
                 Element e = this.getMap().getOnTheMapXY(x,y);
                 frame.addSquare(e, x, y);
 
-                if (e.getSprite() == ' '){
+                /*if (e.getSprite() == ' '){
                     try {
-                        frame.addPawn(new Coin(x, y, this.getMap()));
+                        //frame.addSquare(new Coin(), x, y);
                     } catch (Exception ex){
                         System.err.println(ex);
                     }
-                }
+                }*/
             }
         }
         frame.addPawn(this.getMyPacman());

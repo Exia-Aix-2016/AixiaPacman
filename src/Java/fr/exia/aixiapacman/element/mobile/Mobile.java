@@ -3,6 +3,8 @@ package fr.exia.aixiapacman.element.mobile;
 import com.sun.org.apache.xpath.internal.SourceTree;
 import fr.exia.aixiapacman.element.Element;
 import fr.exia.aixiapacman.element.Permeability;
+import fr.exia.aixiapacman.element.motionless.Floor;
+import fr.exia.aixiapacman.element.motionless.MotionlessElementsFactory;
 import fr.exia.showboard.IPawn;
 
 import java.awt.*;
@@ -52,6 +54,13 @@ abstract class Mobile extends Element implements IPawn {
         {
             System.out.println("No Move");
         }
+        else if(test.getSprite() == 'C'){
+
+            this.getMap().removeOnTheMapXY(this.getX(), this.getY());
+            System.out.println("COIN");
+            this.setY(this.getY() - 1);
+
+        }
         else
         {
             this.setY(this.getY() - 1);
@@ -68,6 +77,12 @@ abstract class Mobile extends Element implements IPawn {
         {
             System.out.println("No Move");
         }
+        else if(test.getSprite() == 'C'){
+
+            this.getMap().removeOnTheMapXY(this.getX(), this.getY());
+            System.out.println("COIN");
+            this.setX(this.getX() - 1);
+        }
         else
         {
             this.setX(this.getX() - 1);
@@ -82,6 +97,13 @@ abstract class Mobile extends Element implements IPawn {
         if(test.getSprite() == 'X')
         {
             System.out.println("No Move");
+        }
+        else if(test.getSprite() == 'C'){
+
+            this.getMap().removeOnTheMapXY(this.getX(), this.getY());
+            System.out.println("COIN");
+            this.setY(this.getY() + 1);
+
         }
         else
         {
@@ -98,6 +120,13 @@ abstract class Mobile extends Element implements IPawn {
         if(test.getSprite() == 'X')
         {
             System.out.println("No Move");
+        }
+        else if(test.getSprite() == 'C'){
+
+            this.getMap().removeOnTheMapXY(this.getX(), this.getY());
+            System.out.println("COIN");
+            this.setX(this.getX() + 1);
+
         }
         else
         {
