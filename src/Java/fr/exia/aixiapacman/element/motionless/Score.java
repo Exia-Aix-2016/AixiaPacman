@@ -16,11 +16,12 @@ public class Score {
     private ArrayList<Letter> mots;
 
     /**
-     * @param max define max score
-     * @param min define min score
+     * @param nameOfTHisScoreBoard Name scoreboard
+     * @param score Char; set first score
      * */
-    public Score(String nameOfTHisScoreBoard, final int max, final int min){
-        this.score = new Letter('A', "A.png");
+    public Score(String nameOfTHisScoreBoard, final char score){
+        String fileName = String.valueOf(score).toUpperCase() + ".png";
+        this.score = new Letter(score, fileName);
 
         this.name = nameOfTHisScoreBoard;
         this.mots = new ArrayList<>();
@@ -33,11 +34,15 @@ public class Score {
             mots.add(letter);
         }
     }
-
+    /**
+     * @return The Array letters.
+     * */
     public ArrayList getMots() {
         return mots;
     }
-
+    /**
+     * @return name of this scoreboard
+     * */
     public String getName() {
         return name;
     }
@@ -47,34 +52,30 @@ public class Score {
         name = name.toUpperCase();
         for(int i = 0; i < name.length(); i++){
             char c = name.charAt(i);
-            String filename = c + ".png";
+            String filename = String.valueOf(c).toUpperCase() + ".png";
             Letter letter = new Letter(c,filename);
             mots.add(letter);
         }
-
         mots.add(score);
-
     }
-
+    /**
+     * Allow Show the score
+     * @param frame Put a Frame where you want show this score
+     * */
     public void show(BoardFrame frame){
         //Print name
         for(int i = 0; i < this.getMots().size(); i++){
-
             frame.addSquare((Element)this.getMots().get(i), i, 0);
 
         }
-
     }
-    public void hide(BoardFrame frame){
-        for(int i = 0; i < this.getMots().size(); i++){
-
-            frame.addSquare(null, i, 0);
-
-        }
-    }
+    /**
+     * Allow to change Score
+     * @param score set letter to change score
+     * */
     public void setScore(final char score) {
-        String filename = score + ".png";
-        this.score = new Letter(score, filename);
+        String fileName = String.valueOf(score).toUpperCase() + ".png";
+        this.score = new Letter(score, fileName);
         this.mots.remove(this.mots.size() - 1);
         this.mots.add(this.score);
 

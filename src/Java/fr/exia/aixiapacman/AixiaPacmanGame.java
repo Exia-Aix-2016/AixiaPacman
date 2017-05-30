@@ -82,7 +82,8 @@ public class AixiaPacmanGame extends Observable implements Runnable{
         } catch (IOException e){}
 
         //Creation du score
-        this.score = new Score("Score", 20, 0);
+        this.score = new Score("score", 'A');
+        this.score.setMots("score");
         //Creation de la fenetre
         this.frame = new BoardFrame("Pacman");
         this.frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -152,7 +153,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
     }
 
     public void run(){
-        this.score.setScore('E');
+        this.score.setScore('D');
         this.frameRefresh(this.frame);
         PacMan pacpac = this.getMyPacman();
         AixiaPacmanGame self = this;
