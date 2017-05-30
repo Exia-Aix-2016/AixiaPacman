@@ -168,59 +168,61 @@ public class AixiaPacmanGame extends Observable implements Runnable{
         PacMan pacpac = this.getMyPacman();
 
         AixiaPacmanGame self = this;
-
-
-
         frame.addKeyListener(new KeyListener() {
             @Override
-            public void keyTyped(KeyEvent e) {}
+            public void keyTyped(KeyEvent e) {
+
+            }
 
             @Override
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
-                if (pacpac.isAlive()){
-                    System.out.println("la gauche");
-                    switch( keyCode ) {
+                //if (pacpac.isAlive()) {
+                    switch (keyCode) {
                         case KeyEvent.VK_LEFT:
-                            System.out.println("la gauche");
+                            System.out.println("left");
                             pacpac.moveLeft();
                             self.setChanged();
                             self.notifyObservers();
                             break;
                         case KeyEvent.VK_UP:
-                            System.out.println("la gauche");
+                            System.out.println("up");
                             pacpac.moveUp();
                             self.setChanged();
                             self.notifyObservers();
                             break;
-                        case KeyEvent.VK_RIGHT :
-                            System.out.println("la gauche");
+                        case KeyEvent.VK_RIGHT:
+                            System.out.println("left");
                             pacpac.moveRight();
                             self.setChanged();
                             self.notifyObservers();
                             break;
-                        case KeyEvent.VK_DOWN :
-                            System.out.println("la gauche");
+                        case KeyEvent.VK_DOWN:
+                            System.out.println("left");
                             pacpac.moveDown();
                             self.setChanged();
                             self.notifyObservers();
                             break;
+
                     }
-                    if (pacpac.isCrashed()){
-                        System.out.println("CRASH !");
-                    }
-                }
+                //}
             }
 
-
             @Override
-            public void keyReleased(KeyEvent e) {}
-        });
+            public void keyReleased(KeyEvent e) {
 
-    }
+            }
+        });
+        //Loop lancement = new Loop();
+
+
+        }
+
+
 
     public final void move() throws InterruptedException {
         while (true) {
+
             if (this.getMyPacman().isAlive()){
                 this.getMyPacman().moveRight();
 
@@ -231,7 +233,6 @@ public class AixiaPacmanGame extends Observable implements Runnable{
                     break;
                 }
 
-                Thread.sleep(500);
             }
         }
     }
