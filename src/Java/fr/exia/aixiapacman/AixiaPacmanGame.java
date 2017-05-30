@@ -170,7 +170,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
             public void keyReleased(KeyEvent e) {}
         });
 
-        this.score.setScore('A');
+        this.score.setScore('B');
         this.frameRefresh(this.frame);
     }
 
