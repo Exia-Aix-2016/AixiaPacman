@@ -27,6 +27,7 @@ public class Score {
         this.mots = new ArrayList<>();
 
         this.name = this.name.toUpperCase();
+
         for(int i = 0; i < this.name.length(); i++){
             char c = this.name.charAt(i);
             String filename = c + ".png";
