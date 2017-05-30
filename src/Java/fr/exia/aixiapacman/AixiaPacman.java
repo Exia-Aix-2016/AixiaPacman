@@ -23,7 +23,8 @@ public abstract class AixiaPacman {
     public static void main(final String[] args) throws IOException, InterruptedException {
 
         Fenetre fen = new Fenetre();
-        //final AixiaPacmanGame AixiaPacmanGame = new AixiaPacmanGame();
+
+
 
 
         //AixiaPacmanGame.move();

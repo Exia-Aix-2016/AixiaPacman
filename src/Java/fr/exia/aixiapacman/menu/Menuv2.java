@@ -1,5 +1,7 @@
 package fr.exia.aixiapacman.menu;
 
+import fr.exia.aixiapacman.AixiaPacmanGame;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -19,6 +21,8 @@ public class Menuv2 extends JPanel{
 	JButton boutonSolo = new JButton("Solo");
 	JButton boutonQuitter = new JButton("Quitter");
 	JButton boutonRetour = new JButton("Retour");
+
+	private boolean launched = false;
 	private Fenetre fen;
 	
 	  public void paintComponent(Graphics g){
@@ -42,9 +46,13 @@ public class Menuv2 extends JPanel{
 		  	boutonSolo.setBounds(575, 300, 400, 200);
 			this.add(boutonSolo);
 			boutonSolo.setVisible(true);
+			Menuv2 selff = this;
 			boutonSolo.addActionListener(new ActionListener(){
-				public void actionPerformed(ActionEvent arg0){
+
+				public void actionPerformed(ActionEvent event){
 					// Faire pacman Solo
+					selff.launcher();
+
 				}
 			});
 			boutonSolo.setFont(font2);
@@ -84,6 +92,15 @@ public class Menuv2 extends JPanel{
 		  	boutonRetour.setContentAreaFilled(false);
 		  	boutonRetour.setBorderPainted(false);
 	  }
+	  public void launcher(){
+	  	if(!this.launched){
+			this.fen.setVisible(false);
+			final AixiaPacmanGame AixiaPacmanGame = new AixiaPacmanGame();
+		}
+		this.launched = true;
+
+	  }
+
 	  public Menuv2(Fenetre fen) {
 			super();
 			this.fen = fen;
