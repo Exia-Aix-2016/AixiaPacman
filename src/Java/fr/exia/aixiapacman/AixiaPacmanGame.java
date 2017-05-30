@@ -2,9 +2,12 @@ package fr.exia.aixiapacman;
 
 import fr.exia.aixiapacman.element.Element;
 import fr.exia.aixiapacman.element.motionless.MotionlessElementsFactory;
+import fr.exia.aixiapacman.element.mobile.Ghost;
 import fr.exia.aixiapacman.element.motionless.Score;
 import fr.exia.aixiapacman.element.motionless.Coin;
 import fr.exia.aixiapacman.element.mobile.PacMan;
+import fr.exia.aixiapacman.element.motionless.*;
+import fr.exia.aixiapacman.element.sound.Sound;
 import fr.exia.showboard.BoardFrame;
 
 import javax.swing.*;
@@ -12,6 +15,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Observable;
 
 /**
@@ -45,6 +49,9 @@ public class AixiaPacmanGame extends Observable implements Runnable{
     /** The my vehicle. */
     private PacMan pacman;
 
+    private ArrayList<Ghost> tabghost;
+
+
     /** The view. */
     private int              view;
 
@@ -66,6 +73,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
         try {
             this.setMap(new Map("map.txt", MapQuota));
             this.setMyPacman(new PacMan(startX, startY, this.getMap()));
+
         } catch (IOException e){}
 
         //Creation du score
@@ -73,6 +81,16 @@ public class AixiaPacmanGame extends Observable implements Runnable{
         this.score.setMots("score");
         //Invoke
         SwingUtilities.invokeLater(this);
+
+        tabghost = new ArrayList<>();
+        try {
+            tabghost.add(new Ghost(10,12,this.getMap()));
+            tabghost.add(new Ghost(11,12,this.getMap()));
+            tabghost.add(new Ghost(12,12,this.getMap()));
+            tabghost.add(new Ghost(13,12,this.getMap()));
+        }catch (Exception e){}
+
+
 
     }
         /**
@@ -101,6 +119,8 @@ public class AixiaPacmanGame extends Observable implements Runnable{
     public final void setMyPacman(final PacMan pacman) {
         this.pacman = pacman;
     }
+
+
 
     public final int getView() {
         return this.view;
@@ -133,6 +153,8 @@ public class AixiaPacmanGame extends Observable implements Runnable{
             @Override
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
+                Sound sound = new Sound();
+                sound.playSound("pacman_chomp");
                 //if (pacpac.isAlive()) {
                     switch (keyCode) {
                         case KeyEvent.VK_LEFT:
@@ -166,12 +188,40 @@ public class AixiaPacmanGame extends Observable implements Runnable{
                 self.frameRefresh(self.frame);
                 self.setChanged();
                 self.notifyObservers();
+
+                for(int i =0; i < tabghost.size(); i++) {
+                    int nb = (int) (Math.random() * 4);
+                    switch (nb) {
+                        case 0:
+                            tabghost.get(i).moveUp();
+                            System.out.println("ghost " + i +" up");
+                            break;
+                        case 1:
+                            tabghost.get(i).moveDown();
+                            System.out.println("ghost " + i +" up");
+                            break;
+                        case 2:
+                            tabghost.get(i).moveLeft();
+                            System.out.println("ghost " + i +" up");
+                            break;
+                        case 3:
+                            tabghost.get(i).moveRight();
+                            System.out.println("ghost " + i +" up");
+                            break;
+
+                    }
+                }
             }
             @Override
             public void keyReleased(KeyEvent e) {
                 self.countCoin();
                 System.out.println("Nbr piece : " + self.nbrCoin);
             }
+
+
+
+
+
 
         });
 
@@ -208,6 +258,8 @@ public class AixiaPacmanGame extends Observable implements Runnable{
             }
         }
         frame.addPawn(this.getMyPacman());
+        for(int i =0; i<4; i++)
+            frame.addPawn(this.tabghost.get(i));
         this.addObserver(frame.getObserver());
         this.setChanged();
         this.notifyObservers();
