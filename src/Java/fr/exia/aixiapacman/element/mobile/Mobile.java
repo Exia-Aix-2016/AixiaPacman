@@ -50,7 +50,7 @@ abstract class Mobile extends Element implements IPawn {
         Element test = getMap().getOnTheMapXY(x ,y-1);
         if(test.getSprite() == 'X')
         {
-            System.out.println("bouge pas");
+            System.out.println("No Move");
         }
         else
         {
@@ -66,7 +66,7 @@ abstract class Mobile extends Element implements IPawn {
         Element test = getMap().getOnTheMapXY(x -1,y);
         if(test.getSprite() == 'X')
         {
-            System.out.println("bouge pas");
+            System.out.println("No Move");
         }
         else
         {
@@ -81,11 +81,12 @@ abstract class Mobile extends Element implements IPawn {
         Element test = getMap().getOnTheMapXY(x ,y+1);
         if(test.getSprite() == 'X')
         {
-            System.out.println("bouge pas");
+            System.out.println("No Move");
         }
         else
         {
             this.setY(this.getY() + 1);
+
         }
     }
 
@@ -96,7 +97,7 @@ abstract class Mobile extends Element implements IPawn {
         Element test = getMap().getOnTheMapXY(x +1,y);
         if(test.getSprite() == 'X')
         {
-            System.out.println("bouge pas");
+            System.out.println("No Move");
         }
         else
         {

@@ -183,13 +183,11 @@ public class AixiaPacmanGame extends Observable implements Runnable{
                 //if (pacpac.isAlive()) {
                     switch (keyCode) {
                         case KeyEvent.VK_LEFT:
-                            //if (){
                             System.out.println("left");
                             pacpac.moveLeft();
                             self.setChanged();
                             self.notifyObservers();
                             break;
-                        //}
                         case KeyEvent.VK_UP:
                             System.out.println("up");
                             pacpac.moveUp();
@@ -210,6 +208,10 @@ public class AixiaPacmanGame extends Observable implements Runnable{
                             break;
 
                     }
+                    //while(KeyEvent() == ){
+                    //    pacpac.moveRight();
+                    //}
+
                 //}
             }
 
@@ -218,9 +220,6 @@ public class AixiaPacmanGame extends Observable implements Runnable{
 
             }
 
-            public void noMove(){
-                pacpac.moveRight();
-            }
         });
 
 
