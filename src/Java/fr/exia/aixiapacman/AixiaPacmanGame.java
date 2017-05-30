@@ -153,8 +153,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
     }
 
     public void run(){
-        this.score.setScore('D');
-        this.frameRefresh(this.frame);
+
         PacMan pacpac = this.getMyPacman();
         AixiaPacmanGame self = this;
 
@@ -197,6 +196,9 @@ public class AixiaPacmanGame extends Observable implements Runnable{
             @Override
             public void keyReleased(KeyEvent e) {}
         });
+
+        this.score.setScore('A');
+        this.frameRefresh(this.frame);
     }
 
     public final void move() throws InterruptedException {
@@ -234,10 +236,10 @@ public class AixiaPacmanGame extends Observable implements Runnable{
                 }
             }
         }
-
         frame.addPawn(this.getMyPacman());
         this.addObserver(frame.getObserver());
-
+        this.setChanged();
+        this.notifyObservers();
         frame.setVisible(true);
     }
 
