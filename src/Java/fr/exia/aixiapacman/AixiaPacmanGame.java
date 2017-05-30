@@ -3,12 +3,11 @@ package fr.exia.aixiapacman;
 import fr.exia.aixiapacman.element.Element;
 import fr.exia.aixiapacman.element.mobile.Ghost;
 import fr.exia.aixiapacman.element.motionless.Score;
-import fr.exia.aixiapacman.element.mobile.Coin;
+import fr.exia.aixiapacman.element.motionless.Coin;
 import fr.exia.aixiapacman.element.mobile.PacMan;
 import fr.exia.aixiapacman.element.motionless.*;
 import fr.exia.aixiapacman.element.sound.Sound;
 import fr.exia.showboard.BoardFrame;
-import jdk.internal.util.xml.impl.Input;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,19 +42,6 @@ public class AixiaPacmanGame extends Observable implements Runnable{
     /** The Constant startY. */
     private static final int startY     = 22;
 
-    /** The Constant keyRight. */
-    private static final int keyRight   = 51;
-
-    /** The Constant keyUp. */
-    private static final int keyUp      = 50;
-
-    /** The Constant keyLeft. */
-    private static final int keyLeft    = 49;
-
-    /** The Constant keyDown. */
-    private static final int keyDown    = 52;
-
-
     /** The Map. */
     private Map             Map;
 
@@ -67,6 +53,8 @@ public class AixiaPacmanGame extends Observable implements Runnable{
 
     /** The view. */
     private int              view;
+
+    private int nbrCoin = 0;
 
     private BoardFrame frame;
     private Score score;
@@ -80,8 +68,6 @@ public class AixiaPacmanGame extends Observable implements Runnable{
      *             Signals that an I/O exception has occurred.
      */
     public AixiaPacmanGame() {
-        // this.setMap(new Map(Map_WIDTH, Map_HEIGHT, Map_VIEW,
-        // Map_QUOTA));
         this.setView(MapView);
         try {
             this.setMap(new Map("map.txt", MapQuota));
@@ -106,29 +92,7 @@ public class AixiaPacmanGame extends Observable implements Runnable{
 
 
     }
-
-    /**
-     * Print the Map and the player's vehicle in the console.
-     *
-     * @param yStart
-     *            the y start
-     */
-    public final void show(final int yStart) {
-        int y = yStart % this.getMap().getHeight();
-        for (int view = 0; view < this.getView(); view++) {
-            for (int x = 0; x < this.getMap().getWidth(); x++) {
-                if ((x == this.getMyPacman().getX()) && (y == yStart)) {
-                    System.out.print(this.getMyPacman().getSprite());
-                } else {
-                    System.out.print(this.getMap().getOnTheMapXY(x, y).getSprite());
-                }
-            }
-            y = (y + 1) % this.getMap().getHeight();
-            System.out.print("\n");
-        }
-    }
-
-    /**
+        /**
      * Gets the Map.
      *
      * @return the Map
@@ -167,11 +131,13 @@ public class AixiaPacmanGame extends Observable implements Runnable{
 
     public void run(){
         //Creation de la fenetre
-        this.frame = new BoardFrame("Pacman");
+        this.frame = new BoardFrame("Pacman", true);
         this.frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.frame.setDimension(new Dimension(this.getMap().getWidth(), this.getMap().getHeight()));
         this.frame.setDisplayFrame(new Rectangle(0 , 0,this.getMap().getWidth()*2, this.getMap().getHeight()));
         this.frameConfigure(frame);
+        this.countCoin();
+
 
         PacMan pacpac = this.getMyPacman();
         AixiaPacmanGame self = this;
@@ -183,7 +149,6 @@ public class AixiaPacmanGame extends Observable implements Runnable{
             public void keyTyped(KeyEvent e) {
 
             }
-
             @Override
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
@@ -193,35 +158,53 @@ public class AixiaPacmanGame extends Observable implements Runnable{
                     switch (keyCode) {
                         case KeyEvent.VK_LEFT:
                             System.out.println("left");
+                            if (pacpac.canGoLeft()){
+                                pacpac.setDirection('w');
+                            }
                             pacpac.moveLeft();
+                            self.frameConfigure(self.frame);
+                            self.frameRefresh(self.frame);
                             self.setChanged();
                             self.notifyObservers();
+
                             break;
                         case KeyEvent.VK_UP:
                             System.out.println("up");
+                            if (pacpac.canGoUp()){
+                                pacpac.setDirection('n');
+                            }
                             pacpac.moveUp();
+                            self.frameConfigure(self.frame);
+                            self.frameRefresh(self.frame);
                             self.setChanged();
                             self.notifyObservers();
+
                             break;
                         case KeyEvent.VK_RIGHT:
                             System.out.println("Right");
+                            if (pacpac.canGoRight()){
+                                pacpac.setDirection('e');
+                            }
                             pacpac.moveRight();
+                            self.frameConfigure(self.frame);
+                            self.frameRefresh(self.frame);
                             self.setChanged();
                             self.notifyObservers();
+
                             break;
                         case KeyEvent.VK_DOWN:
                             System.out.println("Down");
+                            if (pacpac.canGoDown()){
+                                pacpac.setDirection('s');
+                            }
                             pacpac.moveDown();
+                            self.frameConfigure(self.frame);
+                            self.frameRefresh(self.frame);
                             self.setChanged();
                             self.notifyObservers();
+
                             break;
-
                     }
-                    //while(KeyEvent() == ){
-                    //    pacpac.moveRight();
-                    //}
-
-                //}
                 for(int i =0; i < tabghost.size(); i++) {
                     int nb = (int) (Math.random() * 4);
                     switch (nb) {
@@ -247,7 +230,8 @@ public class AixiaPacmanGame extends Observable implements Runnable{
             }
             @Override
             public void keyReleased(KeyEvent e) {
-
+                self.countCoin();
+                System.out.println("Nbr piece : " + self.nbrCoin);
             }
 
 
@@ -257,11 +241,11 @@ public class AixiaPacmanGame extends Observable implements Runnable{
 
         });
 
-        this.score.setScore('B');
+        this.score.setScore('A');
         this.frameRefresh(this.frame);
     }
 
-    public final void move() throws InterruptedException {
+    public void move() throws InterruptedException {
         while (true) {
 
             if (this.getMyPacman().isAlive()){
@@ -286,14 +270,6 @@ public class AixiaPacmanGame extends Observable implements Runnable{
             for (int y = 0; y < this.getMap().getHeight(); y++) {
                 Element e = this.getMap().getOnTheMapXY(x,y);
                 frame.addSquare(e, x, y);
-
-                if (e.getSprite() == ' '){
-                    try {
-                        frame.addPawn(new Coin(x, y, this.getMap()));
-                    } catch (Exception ex){
-                        System.err.println(ex);
-                    }
-                }
             }
         }
         frame.addPawn(this.getMyPacman());
@@ -311,4 +287,18 @@ public class AixiaPacmanGame extends Observable implements Runnable{
         this.setChanged();
         this.notifyObservers();
     }
+
+    private final void countCoin(){
+
+        this.nbrCoin = 0;
+        for (int x = 0; x < this.getMap().getWidth(); x++) {
+            for (int y = 0; y < this.getMap().getHeight(); y++) {
+                Element e = this.getMap().getOnTheMapXY(x,y);
+                if(e.getSprite() == 'C'){
+                    this.nbrCoin++;
+                }
+            }
+        }
+    }
+
 }

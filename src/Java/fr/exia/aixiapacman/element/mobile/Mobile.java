@@ -3,6 +3,8 @@ package fr.exia.aixiapacman.element.mobile;
 import com.sun.org.apache.xpath.internal.SourceTree;
 import fr.exia.aixiapacman.element.Element;
 import fr.exia.aixiapacman.element.Permeability;
+import fr.exia.aixiapacman.element.motionless.Floor;
+import fr.exia.aixiapacman.element.motionless.MotionlessElementsFactory;
 import fr.exia.showboard.IPawn;
 
 import java.awt.*;
@@ -43,65 +45,90 @@ abstract class Mobile extends Element implements IPawn {
         this.setY(y);
     }
 
+
+    public boolean canGoUp(){
+        Element test = getMap().getOnTheMapXY(x ,y-1);
+        return !(test.getSprite() == 'X');
+    }
     /**
      * Move up.
      */
     public void moveUp() {
-        Element test = getMap().getOnTheMapXY(x ,y-1);
-        if(test.getSprite() == 'X')
+        if(this.canGoUp())
         {
-            System.out.println("No Move");
-        }
-        else
-        {
+            Element test = getMap().getOnTheMapXY(x ,y-1);
+            if(test.getSprite() == 'C'){
+                this.getMap().removeOnTheMapXY(this.getX(), this.getY() - 1);
+                System.out.println("COIN");
+            }
             this.setY(this.getY() - 1);
+        } else {
+            System.out.println("No Move");
         }
     }
 
-
+    public boolean canGoLeft(){
+        Element test = getMap().getOnTheMapXY(x -1,y);
+        return !(test.getSprite() == 'X');
+    }
     /**
      * Move left.
      */
     public void moveLeft() {
-        Element test = getMap().getOnTheMapXY(x -1,y);
-        if(test.getSprite() == 'X')
+        if(this.canGoLeft())
         {
-            System.out.println("No Move");
-        }
-        else
-        {
+            Element test = getMap().getOnTheMapXY(x -1,y);
+            if(test.getSprite() == 'C'){
+
+                this.getMap().removeOnTheMapXY(this.getX() - 1, this.getY());
+                System.out.println("COIN");
+            }
             this.setX(this.getX() - 1);
+        } else {
+            System.out.println("No Move");
         }
     }
 
+    public boolean canGoDown(){
+        Element test = getMap().getOnTheMapXY(x ,y+1);
+        return !(test.getSprite() == 'X');
+    }
     /**
      * Move down.
      */
     public void moveDown() {
-        Element test = getMap().getOnTheMapXY(x ,y+1);
-        if(test.getSprite() == 'X')
+        if(this.canGoDown())
         {
-            System.out.println("No Move");
-        }
-        else
-        {
+            Element test = getMap().getOnTheMapXY(x ,y+1);
+            if(test.getSprite() == 'C'){
+                this.getMap().removeOnTheMapXY(this.getX(), this.getY() + 1);
+                System.out.println("COIN");
+            }
             this.setY(this.getY() + 1);
-
+        } else {
+            System.out.println("No Move");
         }
     }
 
+    public boolean canGoRight(){
+        Element test = getMap().getOnTheMapXY(x +1,y);
+        return !(test.getSprite() == 'X');
+    }
     /**
      * Move right.
      */
     public void moveRight() {
-        Element test = getMap().getOnTheMapXY(x +1,y);
-        if(test.getSprite() == 'X')
+
+        if(this.canGoRight())
         {
-            System.out.println("No Move");
-        }
-        else
-        {
+            Element test = getMap().getOnTheMapXY(x +1,y);
+            if(test.getSprite() == 'C'){
+                this.getMap().removeOnTheMapXY(this.getX() + 1, this.getY());
+                System.out.println("COIN");
+            }
             this.setX(this.getX() + 1);
+        } else {
+            System.out.println("No Move");
         }
     }
 
