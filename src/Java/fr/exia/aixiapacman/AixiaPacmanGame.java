@@ -133,28 +133,36 @@ public class AixiaPacmanGame extends Observable implements Runnable{
                     switch (keyCode) {
                         case KeyEvent.VK_LEFT:
                             System.out.println("left");
-                            pacpac.setDirection('w');
+                            if (pacpac.canGoLeft()){
+                                pacpac.setDirection('w');
+                            }
                             pacpac.moveLeft();
                             self.setChanged();
                             self.notifyObservers();
                             break;
                         case KeyEvent.VK_UP:
                             System.out.println("up");
-                            pacpac.setDirection('n');
+                            if (pacpac.canGoUp()){
+                                pacpac.setDirection('n');
+                            }
                             pacpac.moveUp();
                             self.setChanged();
                             self.notifyObservers();
                             break;
                         case KeyEvent.VK_RIGHT:
                             System.out.println("Right");
-                            pacpac.setDirection('e');
+                            if (pacpac.canGoRight()){
+                                pacpac.setDirection('e');
+                            }
                             pacpac.moveRight();
                             self.setChanged();
                             self.notifyObservers();
                             break;
                         case KeyEvent.VK_DOWN:
                             System.out.println("Down");
-                            pacpac.setDirection('s');
+                            if (pacpac.canGoDown()){
+                                pacpac.setDirection('s');
+                            }
                             pacpac.moveDown();
                             self.setChanged();
                             self.notifyObservers();
